@@ -11,3 +11,87 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.doctor_form{
+    max-width: 600px;
+    box-shadow: 0px 5px 24px #867a7a;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 60px;
+    border-radius: 5px;
+    background: url(./images/background.png) no-repeat center;
+    background-size: cover;
+
+}
+
+.brandi{
+  color: black;
+  font-size: 35px;
+
+}
+
+.brandi:hover{
+  color: aquamarine;
+}
+
+.linkii{
+  font-size: 20px;
+  font-family: sans-serif;
+  line-height: 1;
+  color: #fff;
+}
+
+
+.error{
+  color: red;
+}
+
+.carousel-inner{
+  width:100%;
+  max-height: 700px !important;
+}
+
+.tales{
+  width: 100%;
+  height: 700px;
+}
+.navi{
+  background-color:rgb(196, 47, 255);
+  padding: 20px;
+}
+
+
+/* Search bar */
+
+.s01 {
+  min-height: 20vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  padding: 15px;
+}
+
+.s01 form{
+  width: 100%;
+  max-width: 1290px;
+}
+
+.s01 form .inner-form {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 50px 47px;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+
+
+
