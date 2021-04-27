@@ -56,7 +56,7 @@ code {
   height: 700px;
 }
 .navi{
-  background-color:rgb(196, 47, 255);
+  background-color:dodgerblue;
   padding: 20px;
 }
 
@@ -95,3 +95,51 @@ code {
 
 
 
+.review_form{
+  max-width: 600px;
+  box-shadow: 0px 5px 24px #867a7a;
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 60px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  text-align: center;
+
+}
+
+.show_card{
+  max-width: 600px;
+  box-shadow: 0px 5px 24px #867a7a;
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 60px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.link_disabled:disabled{
+  font-size: 20px;
+  font-family: sans-serif;
+  line-height: 1;
+  color: #fff;
+
+}
+
+.back{
+  position: fixed;
+  left: 0%;
+  top: 50%;
+  transform: rotate(90deg);
+  padding: 10px;
+  font-size: larger;
+  color: white;
+}
+
+.error{
+  color: red;
+}
+
+.appoinment{
+  margin: 5px;
+}

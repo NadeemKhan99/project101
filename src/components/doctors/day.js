@@ -1,26 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-function Appp() {
+function DaySlots({ setDay, day, check }) {
+
+
+    const [data_sent_flag, set_data_sent_flag] = useState(false)
+
+
     const initialValues = {
         numberOfTickets: '',
         tickets: []
     };
 
-    // const validationSchema = Yup.object().shape({
-    //     numberOfTickets: Yup.string()
-    //         .required('Number of tickets is required'),
-    //     tickets: Yup.array().of(
-    //         Yup.object().shape({
-    //             name: Yup.string()
-    //                 .required('Name is required'),
-    //             email: Yup.string()
-    //                 .email('Email is invalid')
-    //                 .required('Email is required')
-    //         })
-    //     )
-    // });
+
 
     function onChangeTickets(e, field, values, setValues) {
         // update dynamic form
@@ -45,25 +38,33 @@ function Appp() {
         field.onChange(e);
     }
 
+
+
     function onSubmit(fields) {
         // display form field values on success
-        alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4));
+        // alert('SUCCESS!! :-)\n\n' + JSON.stringify(fields, null, 4));
+        set_data_sent_flag(true)
+        setDay(fields)
+        check(true)
+
+        
+        
     }
 
     return (
-        <Formik initialValues={initialValues}  onSubmit={onSubmit}>
+        <div className="doctor_form">
+        <Formik initialValues={initialValues} onSubmit={onSubmit}>
             {({ errors, values, touched, setValues }) => (
                 <Form>
                     <div className="card m-3">
-                        <h5 className="card-header">React + Formik Dynamic Form Example</h5>
                         <div className="card-body border-bottom">
                             <div className="form-row">
                                 <div className="form-group">
-                                    <label>Monday</label>
+                                    <h3>{day}</h3>
                                     <Field name="numberOfTickets">
                                         {({ field }) => (
-                                            <select  required {...field} className={'form-control' + (errors.numberOfTickets && touched.numberOfTickets ? ' is-invalid' : '')} onChange={e => onChangeTickets(e, field, values, setValues)}>
-                                                <option value={0}></option>
+                                            <select required {...field} className={'form-control' + (errors.numberOfTickets && touched.numberOfTickets ? ' is-invalid' : '')} onChange={e => onChangeTickets(e, field, values, setValues)}>
+
                                                 {[0, 1, 2, 3].map(i =>
                                                     <option key={i} value={i}>{i}</option>
                                                 )}
@@ -100,16 +101,30 @@ function Appp() {
                             }))}
                         </FieldArray>
                         <div className="card-footer text-center border-top-0">
-                            <button type="submit" className="btn btn-primary mr-1">
+                            {
+                                data_sent_flag ? 
+                                <div>
+                                    <span>Submitted</span>
+                                    <input type="button" value="Change" onClick={()=> {set_data_sent_flag(false)
+                                        check(false)
+                                    }}/>
+
+                                </div>
+                                :
+
+                                <button type="submit" className="btn btn-primary mr-1">
                                 Submit
-                            </button>
-                            <button className="btn btn-secondary mr-1" type="reset">Reset</button>
+                                </button>
+                            }
+                            
+                            {/* <button className="btn btn-secondary mr-1" type="reset">Reset</button> */}
                         </div>
                     </div>
                 </Form>
             )}
         </Formik>
+        </div>
     )
 }
 
-export default Appp;
+export default DaySlots;

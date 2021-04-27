@@ -2,8 +2,7 @@ import React, { Fragment } from 'react'
 import { useFormik } from "formik";
 import * as yup from "yup";
 import "./../../index.css"
-import axios from 'axios';
-import Appp from './appp'
+import axios from 'axios'
 
 function DocSignup() {
 
@@ -82,20 +81,20 @@ function DocSignup() {
 
     // }
 
-    const onChangeTickets = (e) =>{
-        const tickets = [formik.values.tickets];
-        const numberOfTickets = e.target.value || 0;
+    // const onChangeTickets = (e) =>{
+    //     const tickets = [formik.values.tickets];
+    //     const numberOfTickets = e.target.value || 0;
     
-        tickets.splice(0, tickets.length)
-        for (let i = 0; i < numberOfTickets; i++) {
-            tickets.push({ start: '', end: '' });
-        }
+    //     tickets.splice(0, tickets.length)
+    //     for (let i = 0; i < numberOfTickets; i++) {
+    //         tickets.push({ start: '', end: '' });
+    //     }
     
-        formik.values.tickets = tickets
+    //     formik.values.tickets = tickets
     
-        console.log(formik.values.tickets)
-        formik.values.mon_shifts.onChange(e)
-    }
+    //     console.log(formik.values.tickets)
+    //     formik.values.mon_shifts.onChange(e)
+    // }
 
 
 

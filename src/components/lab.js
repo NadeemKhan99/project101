@@ -1,9 +1,10 @@
 import React from 'react'
+import Navbar from './navbar'
 
 function Lab() {
     return(
         <div>
-            <h1>This is labs</h1>
+            <Navbar/>
         </div>
     );
 }

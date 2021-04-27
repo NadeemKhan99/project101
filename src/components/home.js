@@ -1,11 +1,11 @@
 import React from 'react'
-import Slide from './sliders'
 import Search from './search'
+import Navbar from './navbar'
 
 function Home() {
     return(
         <div>
-            <Slide/>
+            <Navbar/>
             <Search/>
         </div>
     );

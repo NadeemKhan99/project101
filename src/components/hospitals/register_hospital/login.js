@@ -2,15 +2,14 @@ import React, { useState } from 'react'
 import { useFormik } from "formik";
 import { Link } from 'react-router-dom'
 import * as yup from "yup";
-import "./../../index.css"
-import ShowCard from './show_card'
+import "./../../../index.css"
+import ShowCard from './../../doctors/show_card'
 import axios from 'axios';
-import Navbar from './../navbar'
-import { navbar_select } from './../api_requests/login'
+import Navbar from './../../navbar'
 import { Fragment } from 'react';
 
 
-function DocSign() {
+function HosSign() {
 
 
 
@@ -75,7 +74,7 @@ function DocSign() {
             <Navbar/>
             <div className="doctor_form">
                 <form onSubmit={formik.handleSubmit}>
-                    <h3 align='center'>Doctors Login</h3>
+                    <h3 align='center'>Hospital Login</h3>
 
                     <div className="mb-2 p-2">
                         <label htmlFor="email" className="form-label">Email</label>
@@ -104,4 +103,4 @@ function DocSign() {
     );
 }
 
-export default DocSign;
+export default HosSign;
