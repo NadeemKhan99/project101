@@ -1,15 +1,22 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import { useFormik } from "formik";
 import * as yup from "yup";
-import "./../../index.css"
+import "./../../../index.css"
+
+import { get_specialist } from './../../api_requests/login'
 import axios from 'axios';
 
-function EducationForm({ submit, setformValuesEducation, formValuesEducation }) {
+function EducationForm({ submit, setformValuesEducation, formValuesEducation, back_slots }) {
+
+    let [myspecialist, setspecialist] = useState("")
+
+    let hospital_id_get = sessionStorage.getItem("hospital_id")
+
 
     const formik = useFormik({
         initialValues: {
 
-            clinic: formValuesEducation.clinic,
+            // clinic: formValuesEducation.clinic,
             experience: formValuesEducation.experience,
             fees: formValuesEducation.fees,
             speciality: formValuesEducation.speciality,
@@ -22,25 +29,9 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation }) 
             setformValuesEducation({ ...values })
 
 
-
-
-            // var headers = {
-            //     "Content-Type": "application/json;charset=UTF-8",
-            // }
-
-
-
-            // axios.post(
-            //     'http://localhost/back_end/go.php', values, headers
-            // ).then(
-            //     res => {
-            //         console.log(res.data)
-            //     }
-            // );
-
         },
         validationSchema: yup.object({
-            clinic: yup.string().matches("^[a-zA-Z ]{1,}", "Only use alphabets and space!").required("This field is required!"),
+            // clinic: yup.string().matches("^[a-zA-Z ]{1,}", "Only use alphabets and space!").required("This field is required!"),
             fees: yup.number().min(0, "Too short").max(10000, "Too long").required("This field is required!"),
             experience: yup.number().max(60, "Too long").required("This field is required!"),
             speciality: yup.string().matches("[^none]", "This field is required").required("This field is required!"),
@@ -51,7 +42,38 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation }) 
 
 
 
+    //  --------------- getting specilists data-------------
 
+    //   for cancelation of appointment
+
+    useEffect(() => {
+        async function appointment_del(id) {
+            let real_data = await get_specialist(id);
+
+            setspecialist(real_data);
+        }
+        appointment_del(hospital_id_get);
+    }, [hospital_id_get]);
+
+
+
+        let i = 0;
+        let rows = []
+        while (i < myspecialist.length) {
+            rows.push(i)
+            i++
+        }
+    
+    
+
+
+
+    // if(myspecialist)
+    // {
+
+    //     let my_data = 
+
+    // }
 
 
 
@@ -59,13 +81,13 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation }) 
     return (
         <div className="doctor_form">
             <form onSubmit={formik.handleSubmit}>
-                <h3 align="center">Education Info</h3>
+                <h3>Education Info</h3>
 
-                <div className="mb-2 p-2">
+                {/* <div className="mb-2 p-2">
                     <label htmlFor="clinic" className="form-label">Clinic Name</label>
                     <input type="text" className="form-control" value={formik.values.clinic} onChange={formik.handleChange} id="clinic" placeholder="Enter clinic name" />
                     {formik.errors.clinic ? <div className="error">{formik.errors.clinic}</div> : ""}
-                </div>
+                </div> */}
 
                 <div className="mb-2 p-2">
                     <label htmlFor="experience" className="form-label">Experience</label>
@@ -82,12 +104,19 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation }) 
                 <div className="mb-2 p-2">
                     <label htmlFor="speciality" className="form-label">Speciality</label>
                     <select className="form-select" id="speciality" value={formik.values.speciality} onChange={formik.handleChange} aria-label="Default select example">
-                        <option value="none">Select Specialist</option>
-                        <option value="neurologist">Neurologist</option>
-                        <option value="child specialist">Child Specialist</option>
-                        <option value="gynecologist">Gynecologist</option>
-                        <option value="orthopadic surgeon">Orthopadic Surgeon</option>
-                        <option value="endocrinlogist">Endocrinlogist</option>
+                    <option value="none">Select Specialist</option>
+                        {
+                            rows.map((data,key)=>{
+                                return(
+                                    <Fragment key={key}>
+                                    <option value={myspecialist[key]}>{myspecialist[key]}</option>
+                                    </Fragment>
+                                )
+
+
+                            })
+                        }
+                        
                     </select>
                     {formik.errors.speciality ? <div className="error">{formik.errors.speciality}</div> : ""}
                 </div>
@@ -100,21 +129,13 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation }) 
 
 
                 <div className="mb-6 p-2 register_button">
-                    <div className="row">
-                        <div className="col">
 
-                            <button className="btn btn-primary" onClick={() => submit(0)} >Back</button>
-                        </div>
-                        <div className="col">
-                            <button type="submit" className="btn btn-success float-right">Next</button>
-                        </div>
-                    </div>
-
-
+                    <button type="submit" className="btn btn-success">Next</button>
 
                 </div>
             </form>
-
+            <button onClick={() => submit(0)} >Back</button>
+            <button className="btn btn-success back" onClick={() => back_slots(false)}>Search Doctor</button>
         </div>
     );
 }

@@ -105,7 +105,7 @@ function DaySlots({ setDay, day, check }) {
                                 data_sent_flag ? 
                                 <div>
                                     <span>Submitted</span>
-                                    <input type="button" value="Change" onClick={()=> {set_data_sent_flag(false)
+                                    <input type="button" className="btn btn-secondary" value="Change" onClick={()=> {set_data_sent_flag(false)
                                         check(false)
                                     }}/>
 

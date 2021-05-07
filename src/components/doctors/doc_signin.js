@@ -38,9 +38,21 @@ function DocSign() {
                         sessionStorage.setItem("doctor_id", res.data.user_id)
                         sessionStorage.setItem("password", res.data.password)
                         sessionStorage.setItem("name", res.data.name)
+                        sessionStorage.setItem("fees", res.data.fees)
                         sessionStorage.setItem("city", res.data.city)
                         sessionStorage.setItem("address", res.data.address)
+                        sessionStorage.setItem("speciality",res.data.speciality)
+                        sessionStorage.setItem("experience",res.data.experience)
+                        sessionStorage.setItem("qualification",res.data.qualification)
                         sessionStorage.setItem("phone", res.data.phone)
+                        sessionStorage.setItem("clinic", res.data.clinic)
+                        sessionStorage.setItem("start", res.data.start)
+                        sessionStorage.setItem("end", res.data.end)
+                        sessionStorage.setItem("hospital_ids", res.data.hostipal_ids)
+                        sessionStorage.setItem("hospital_names", res.data.hospital_name)
+                        sessionStorage.setItem("counter", res.data.counter)
+            
+
                         setcheck(true)
                         alert(res.data.id)
 

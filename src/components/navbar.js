@@ -30,12 +30,14 @@ function Navbar() {
     let [user_check, setuser_check] = useState(sessionStorage.getItem('user_id') || false)
 
     let [no_user, set_no_user] = useState(sessionStorage.getItem('email') || false)
-    
+
+    let [hospital_true, set_hospital_true] = useState(sessionStorage.getItem('hospital_id') || false)
+
 
 
     const classes = useStyles()
 
-    
+
 
 
 
@@ -46,18 +48,19 @@ function Navbar() {
         setcheck(false)
         setuser_check(false)
         set_no_user(false)
+        set_hospital_true(false)
 
         sessionStorage.clear()
 
         history.push("/login")
-    
-        
+
+
 
     }
 
 
 
-    
+
 
     return (
         <div>
@@ -86,7 +89,7 @@ function Navbar() {
                                     <Fragment>
 
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/doctor">Doctors</Link>
+                                            <Link className="nav-link linkii" to="/doctor">My Patients</Link>
                                         </li>
                                         <li className="nav-item">
                                             <Link className="nav-link linkii" hidden to="/hospital">Hospitals</Link>
@@ -95,8 +98,52 @@ function Navbar() {
                                             <Link className="nav-link linkii" hidden to="/lab">Labs</Link>
                                         </li>
                                         <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/accounts">{sessionStorage.getItem("name")}</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/update">Update Account</Link>
+                                        </li>
+                                        <li className="nav-item">
                                             <Link className="nav-link linkii" hidden to="/login">Sign in</Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link linkii" onClick={logout}>Logout</a>
+                                        </li>
+                                    </Fragment>
+                                    :
+                                    <div></div>
+
+                            }
+
+
+                            {/*----------------------------------------------For Hospital--------------------------------------------------- */}
+                            {
+
+                                hospital_true ?
+                                    <Fragment>
+
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" hidden to="/doctor">Doctors</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/hospital">Hospitals</Link>
+                                        </li>
+
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/search_doctor">Add Doctors</Link>
+                                        </li>
+
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" hidden to="/lab">Labs</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" hidden to="/login">Sign in</Link>
+                                        </li>
+
+                                        <li className="nav-item">
+                                        <a className="nav-link linkii" >{sessionStorage.getItem("hospital_name")}</a>
+                                        </li>
+
                                         <li className="nav-item">
                                             <a className="nav-link linkii" onClick={logout}>Logout</a>
                                         </li>
@@ -140,7 +187,7 @@ function Navbar() {
 
                             {/*----------------------------------------------no user--------------------------------------------------- */}
                             {
-                                no_user===false ?
+                                no_user === false ?
                                     <Fragment>
                                         <li className="nav-item">
                                             <Link className="nav-link linkii" to="/doctor">Doctors</Link>
@@ -152,7 +199,7 @@ function Navbar() {
                                             <Link className="nav-link linkii" to="/lab">Labs</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii"  to="/login">Sign in</Link>
+                                            <Link className="nav-link linkii" to="/login">Sign in</Link>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link linkii" hidden onClick={logout}>Logout</a>

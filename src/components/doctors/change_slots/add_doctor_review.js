@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import "./../../index.css"
+import "./../../../index.css"
 import axios from 'axios';
 
 
 
-function Review({ submit, values, slots_data }) {
+function ReviewAlready({ submit, slots_data, back_to_search, doctor_id}) {
 
 
 
@@ -37,6 +37,8 @@ function Review({ submit, values, slots_data }) {
 
 
 
+    // console.log(doctor_id)
+    // console.log(sessionStorage.getItem("hospital_id"))
 
 
 
@@ -48,21 +50,12 @@ function Review({ submit, values, slots_data }) {
         let ending = `${monday_database[1]},${tuesday_database[1]},${wednesday_database[1]},${thursday_database[1]},${friday_database[1]},${saturday_database[1]},${sunday_database[1]}`
 
         const registration_data = {
-            name: values[0].name,
-            email: values[0].email,
-            password: values[0].password,
-            city: values[0].city,
-            phone: values[0].phone,
-            address: values[0].address,
-            category: "doctor",
-            clinic: values[1].clinic,
-            fees: values[1].fees,
-            experience: values[1].experience,
-            qualification: values[1].qualification,
-            speciality: values[1].speciality,
+            doctor_id: doctor_id,
             start: starting,
             end: ending
         }
+
+
 
         var headers = {
             "Content-Type": "application/json;charset=UTF-8",
@@ -72,11 +65,21 @@ function Review({ submit, values, slots_data }) {
 
 
         axios.post(
-            'http://localhost/back_end/signup_doctor.php', registration_data, headers
+            'http://localhost/back_end/update_doctor_slots.php', registration_data, headers
         ).then(
             res => {
-                alert(res.data.id)
-                submit(4)
+
+                if(res.data.signal === 1)
+                {
+                    alert(res.data.id)
+                    back_to_search(false)
+
+                }
+                else{
+                    alert(res.data.id)
+                    back_to_search(false)
+                }
+
 
 
 
@@ -92,20 +95,6 @@ function Review({ submit, values, slots_data }) {
         <div className="review_form">
             <h2>Review</h2>
             <br></br>
-            <h4>Registration Data</h4>
-            <p>{values[0].name}</p>
-            <p>{values[0].email}</p>
-            <p>{values[0].password}</p>
-            <p>{values[0].city}</p>
-            <p>0{values[0].phone}</p>
-            <p>{values[0].address}</p>
-            <h4>Educational Data</h4>
-            <p>{values[1].clinic}</p>
-            <p>{values[1].fees}</p>
-            <p>{values[1].experience}</p>
-            <p>{values[1].qualification}</p>
-            <p>{values[1].speciality}</p>
-
 
             {/*  ------------------------------------MONDAY----------------------------- */}
             <h4>Slots</h4>
@@ -127,10 +116,10 @@ function Review({ submit, values, slots_data }) {
 
 
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
                         monday_database[0] = monday_database[0].concat(end_time + "-")
                         monday_database[1] = monday_database[1].concat(start_time + "-")
@@ -177,10 +166,10 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
 
                         tuesday_database[0] = tuesday_database[0].concat(end_time + "-")
@@ -222,10 +211,10 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
                         wednesday_database[0] = wednesday_database[0].concat(end_time + "-")
                         wednesday_database[1] = wednesday_database[1].concat(start_time + "-")
@@ -269,10 +258,10 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
                         thursday_database[0] = thursday_database[0].concat(end_time + "-")
                         thursday_database[1] = thursday_database[1].concat(start_time + "-")
@@ -313,10 +302,10 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
                         friday_database[0] = friday_database[0].concat(end_time + "-")
                         friday_database[1] = friday_database[1].concat(start_time + "-")
@@ -358,10 +347,10 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
                         saturday_database[0] = saturday_database[0].concat(end_time + "-")
                         saturday_database[1] = saturday_database[1].concat(start_time + "-")
@@ -402,10 +391,10 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
                         sunday_database[0] = sunday_database[0].concat(end_time + "-")
                         sunday_database[1] = sunday_database[1].concat(start_time + "-")
@@ -434,11 +423,16 @@ function Review({ submit, values, slots_data }) {
 
             <div className="row">
                 <div className="col">
-                    <button className="btn btn-primary float-right" onClick={() => submit(2)}>Back</button>
+                    <button className="btn btn-danger" onClick={() => submit(0)}>Back</button>
                 </div>
                 <div className="col">
-                    <button className="btn btn-success float-left" onClick={onSubmit}>Submit</button>
+                    <button className="btn btn-secondary" onClick={onSubmit}>Submit</button>
                 </div>
+                <div className="col">
+
+                    <button className="btn btn-success" onClick={() => back_to_search(false)}>Back to Accounts</button>
+                </div>
+
             </div>
 
 
@@ -451,4 +445,4 @@ function Review({ submit, values, slots_data }) {
     );
 }
 
-export default Review;
+export default ReviewAlready;

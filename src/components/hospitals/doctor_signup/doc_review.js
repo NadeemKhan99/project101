@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import "./../../index.css"
+import "./../../../index.css"
 import axios from 'axios';
 
 
 
-function Review({ submit, values, slots_data }) {
+function Review({ submit, values, slots_data,back_slots }) {
 
 
 
@@ -16,13 +16,13 @@ function Review({ submit, values, slots_data }) {
     let saturday_slots = slots_data[5]
     let sunday_slots = slots_data[6]
 
-    let monday_database = ["", ""]
-    let tuesday_database = ["", ""]
-    let wednesday_database = ["", ""]
-    let thursday_database = ["", ""]
-    let friday_database = ["", ""]
-    let saturday_database = ["", ""]
-    let sunday_database = ["", ""]
+    let monday_database = ["",""]
+    let tuesday_database = ["",""]
+    let wednesday_database = ["",""]
+    let thursday_database = ["",""]
+    let friday_database = ["",""]
+    let saturday_database = ["",""]
+    let sunday_database = ["",""]
 
 
     function get_mapped_data(data) {
@@ -42,10 +42,10 @@ function Review({ submit, values, slots_data }) {
 
     function onSubmit() {
 
-
-
-        let starting = `${monday_database[0]},${tuesday_database[0]},${wednesday_database[0]},${thursday_database[0]},${friday_database[0]},${saturday_database[0]},${sunday_database[0]}`
-        let ending = `${monday_database[1]},${tuesday_database[1]},${wednesday_database[1]},${thursday_database[1]},${friday_database[1]},${saturday_database[1]},${sunday_database[1]}`
+        
+        
+            let starting =  `${monday_database[0]},${tuesday_database[0]},${wednesday_database[0]},${thursday_database[0]},${friday_database[0]},${saturday_database[0]},${sunday_database[0]}`
+            let ending = `${monday_database[1]},${tuesday_database[1]},${wednesday_database[1]},${thursday_database[1]},${friday_database[1]},${saturday_database[1]},${sunday_database[1]}`
 
         const registration_data = {
             name: values[0].name,
@@ -55,13 +55,14 @@ function Review({ submit, values, slots_data }) {
             phone: values[0].phone,
             address: values[0].address,
             category: "doctor",
-            clinic: values[1].clinic,
+            // clinic: values[1].clinic,
             fees: values[1].fees,
             experience: values[1].experience,
             qualification: values[1].qualification,
             speciality: values[1].speciality,
             start: starting,
-            end: ending
+            end: ending,
+            hospital_id: sessionStorage.getItem("hospital_id")
         }
 
         var headers = {
@@ -72,14 +73,17 @@ function Review({ submit, values, slots_data }) {
 
 
         axios.post(
-            'http://localhost/back_end/signup_doctor.php', registration_data, headers
+            'http://localhost/back_end/hos_doc_signup.php', registration_data, headers
         ).then(
             res => {
-                alert(res.data.id)
-                submit(4)
+                
+                    alert(res.data.id)
+                    back_slots(false)
+                
 
-
-
+                
+                
+               
             }
         );
 
@@ -100,7 +104,7 @@ function Review({ submit, values, slots_data }) {
             <p>0{values[0].phone}</p>
             <p>{values[0].address}</p>
             <h4>Educational Data</h4>
-            <p>{values[1].clinic}</p>
+            {/* <p>{values[1].clinic}</p> */}
             <p>{values[1].fees}</p>
             <p>{values[1].experience}</p>
             <p>{values[1].qualification}</p>
@@ -123,21 +127,21 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
 
-
+                    
 
 
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div> 
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
-                        monday_database[0] = monday_database[0].concat(end_time + "-")
-                        monday_database[1] = monday_database[1].concat(start_time + "-")
+                        monday_database[0] =monday_database[0].concat(end_time+"-")
+                        monday_database[1]=monday_database[1].concat(start_time+"-")
 
-
-
-
+                    
+                        
+                        
 
                         return (
                             <div key={key}>
@@ -149,13 +153,13 @@ function Review({ submit, values, slots_data }) {
 
 
                     :
-
-                    get_mapped_data(1).map((data, key) => {
+                    
+                    get_mapped_data(1).map((data,key)=>{
                         monday_database[0] = "Holiday"
-                        monday_database[1] = "Holiday"
-                        return (
+                        monday_database[1]= "Holiday"
+                        return(
                             <div key={key}>
-                                <p>Not Available</p>
+                            <p>Not Available</p>
                             </div>
                         )
 
@@ -177,14 +181,14 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div> 
+                        
 
-
-                        tuesday_database[0] = tuesday_database[0].concat(end_time + "-")
-                        tuesday_database[1] = tuesday_database[1].concat(start_time + "-")
+                        tuesday_database[0] =tuesday_database[0].concat(end_time+"-")
+                        tuesday_database[1]=tuesday_database[1].concat(start_time+"-")
 
                         return (
                             <div key={key}>
@@ -196,12 +200,12 @@ function Review({ submit, values, slots_data }) {
 
 
                     :
-                    get_mapped_data(1).map((data, key) => {
+                    get_mapped_data(1).map((data,key)=>{
                         tuesday_database[0] = "Holiday"
-                        tuesday_database[1] = "Holiday"
-                        return (
+                        tuesday_database[1]= "Holiday"
+                        return(
                             <div key={key}>
-                                <p>Not Available</p>
+                            <p>Not Available</p>
                             </div>
                         )
 
@@ -209,9 +213,9 @@ function Review({ submit, values, slots_data }) {
             }
 
 
-            {/*  ------------------------------------Wednesday----------------------------- */}
+             {/*  ------------------------------------Wednesday----------------------------- */}
 
-            <h5>Wednesday</h5>
+             <h5>Wednesday</h5>
             {
                 wednesday_slots.numberOfTickets !== "0" ?
 
@@ -222,13 +226,13 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
-
-                        wednesday_database[0] = wednesday_database[0].concat(end_time + "-")
-                        wednesday_database[1] = wednesday_database[1].concat(start_time + "-")
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div> 
+                        
+                        wednesday_database[0] =wednesday_database[0].concat(end_time+"-")
+                        wednesday_database[1]=wednesday_database[1].concat(start_time+"-")
 
                         return (
                             <div key={key}>
@@ -240,12 +244,12 @@ function Review({ submit, values, slots_data }) {
 
 
                     :
-                    get_mapped_data(1).map((data, key) => {
+                    get_mapped_data(1).map((data,key)=>{
                         wednesday_database[0] = "Holiday"
-                        wednesday_database[1] = "Holiday"
-                        return (
+                        wednesday_database[1]= "Holiday"
+                        return(
                             <div key={key}>
-                                <p>Not Available</p>
+                            <p>Not Available</p>
                             </div>
                         )
 
@@ -255,9 +259,9 @@ function Review({ submit, values, slots_data }) {
 
 
 
-            {/*  ------------------------------------Thursday----------------------------- */}
+             {/*  ------------------------------------Thursday----------------------------- */}
 
-            <h5>Thursday</h5>
+             <h5>Thursday</h5>
             {
                 thursday_slots.numberOfTickets !== "0" ?
 
@@ -269,13 +273,13 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div> 
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
 
-                        thursday_database[0] = thursday_database[0].concat(end_time + "-")
-                        thursday_database[1] = thursday_database[1].concat(start_time + "-")
+                        thursday_database[0] = thursday_database[0].concat(end_time+"-")
+                        thursday_database[1]= thursday_database[1].concat(start_time+"-")
 
                         return (
                             <div key={key}>
@@ -287,12 +291,12 @@ function Review({ submit, values, slots_data }) {
 
 
                     :
-                    get_mapped_data(1).map((data, key) => {
+                    get_mapped_data(1).map((data,key)=>{
                         thursday_database[0] = "Holiday"
-                        thursday_database[1] = "Holiday"
-                        return (
+                        thursday_database[1]= "Holiday"
+                        return(
                             <div key={key}>
-                                <p>Not Available</p>
+                            <p>Not Available</p>
                             </div>
                         )
 
@@ -300,9 +304,9 @@ function Review({ submit, values, slots_data }) {
             }
 
 
-            {/*  ------------------------------------Friday----------------------------- */}
+             {/*  ------------------------------------Friday----------------------------- */}
 
-            <h5>Friday</h5>
+             <h5>Friday</h5>
             {
                 friday_slots.numberOfTickets !== "0" ?
 
@@ -313,13 +317,13 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div>
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div> 
 
-                        friday_database[0] = friday_database[0].concat(end_time + "-")
-                        friday_database[1] = friday_database[1].concat(start_time + "-")
+                        friday_database[0] =friday_database[0].concat(end_time+"-")
+                        friday_database[1]=friday_database[1].concat(start_time+"-")
 
                         return (
                             <div key={key}>
@@ -331,12 +335,12 @@ function Review({ submit, values, slots_data }) {
 
 
                     :
-                    get_mapped_data(1).map((data, key) => {
+                    get_mapped_data(1).map((data,key)=>{
                         friday_database[0] = "Holiday"
-                        friday_database[1] = "Holiday"
-                        return (
+                        friday_database[1]= "Holiday"
+                        return(
                             <div key={key}>
-                                <p>Not Available</p>
+                            <p>Not Available</p>
                             </div>
                         )
 
@@ -344,9 +348,9 @@ function Review({ submit, values, slots_data }) {
             }
 
 
-            {/*  ------------------------------------Saturday----------------------------- */}
+             {/*  ------------------------------------Saturday----------------------------- */}
 
-            <h5>Saturday</h5>
+             <h5>Saturday</h5>
             {
                 saturday_slots.numberOfTickets !== "0" ?
 
@@ -358,13 +362,13 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div> 
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
-
-                        saturday_database[0] = saturday_database[0].concat(end_time + "-")
-                        saturday_database[1] = saturday_database[1].concat(start_time + "-")
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div>
+                        
+                        saturday_database[0] =saturday_database[0].concat(end_time+"-")
+                        saturday_database[1]=saturday_database[1].concat(start_time+"-")
 
                         return (
                             <div key={key}>
@@ -376,12 +380,12 @@ function Review({ submit, values, slots_data }) {
 
 
                     :
-                    get_mapped_data(1).map((data, key) => {
+                    get_mapped_data(1).map((data,key)=>{
                         saturday_database[0] = "Holiday"
-                        saturday_database[1] = "Holiday"
-                        return (
+                        saturday_database[1]= "Holiday"
+                        return(
                             <div key={key}>
-                                <p>Not Available</p>
+                            <p>Not Available</p>
                             </div>
                         )
 
@@ -389,9 +393,9 @@ function Review({ submit, values, slots_data }) {
             }
 
 
-            {/*  ------------------------------------Sunday----------------------------- */}
+             {/*  ------------------------------------Sunday----------------------------- */}
 
-            <h5>Sunday</h5>
+             <h5>Sunday</h5>
             {
                 sunday_slots.numberOfTickets !== "0" ?
 
@@ -402,13 +406,13 @@ function Review({ submit, values, slots_data }) {
                         let start_time = ""
                         let end_time = ""
                         parseInt(start_data[0]) > 12 ? start_time = `${parseInt(start_data[0])}:${start_data[1]} PM` : start_time = `${start_data[0]}:${start_data[1]} AM`
-                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : start_time = start_time
+                        parseInt(start_data[0]) === 12 ? start_time = `${start_data[0]}:${start_data[1]} PM` : <div></div> 
 
                         parseInt(end_data[0]) > 12 ? end_time = `${parseInt(end_data[0])}:${end_data[1]} PM` : end_time = `${end_data[0]}:${end_data[1]} AM`
-                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : end_time = end_time
+                        parseInt(end_data[0]) === 12 ? end_time = `${end_data[0]}:${end_data[1]} PM` : <div></div> 
 
-                        sunday_database[0] = sunday_database[0].concat(end_time + "-")
-                        sunday_database[1] = sunday_database[1].concat(start_time + "-")
+                        sunday_database[0] = sunday_database[0].concat(end_time+"-")
+                        sunday_database[1]= sunday_database[1].concat(start_time+"-")
 
                         return (
                             <div key={key}>
@@ -420,29 +424,22 @@ function Review({ submit, values, slots_data }) {
 
 
                     :
-                    get_mapped_data(1).map((data, key) => {
+                    get_mapped_data(1).map((data,key)=>{
                         sunday_database[0] = "Holiday"
-                        sunday_database[1] = "Holiday"
-                        return (
+                        sunday_database[1]= "Holiday"
+                        return(
                             <div key={key}>
-                                <p>Not Available</p>
+                            <p>Not Available</p>
                             </div>
                         )
 
                     })
             }
 
-            <div className="row">
-                <div className="col">
-                    <button className="btn btn-primary float-right" onClick={() => submit(2)}>Back</button>
-                </div>
-                <div className="col">
-                    <button className="btn btn-success float-left" onClick={onSubmit}>Submit</button>
-                </div>
-            </div>
 
-
-
+            <button className="btn btn-secondary" onClick={() => submit(2)}>Back</button>
+            <button className="btn btn-primary" onClick={onSubmit}>Submit</button>
+            <button className="btn btn-success back" onClick={() => back_slots(false)}>Search Doctor</button>
 
 
 

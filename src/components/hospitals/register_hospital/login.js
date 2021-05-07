@@ -29,17 +29,22 @@ function HosSign() {
 
 
             axios.post(
-                'http://localhost/back_end/signin.php', values, headers
+                'http://localhost/back_end/hospital_signin.php', values, headers
             ).then(
                 res => {
                     if (res.data.signal === 1) {
                         sessionStorage.setItem("email", res.data.email)
-                        sessionStorage.setItem("doctor_id", res.data.user_id)
+                        sessionStorage.setItem("hospital_id", res.data.user_id)
                         sessionStorage.setItem("password", res.data.password)
                         sessionStorage.setItem("name", res.data.name)
                         sessionStorage.setItem("city", res.data.city)
                         sessionStorage.setItem("address", res.data.address)
                         sessionStorage.setItem("phone", res.data.phone)
+                        sessionStorage.setItem("disease_treated",res.data.speciality)
+                        sessionStorage.setItem("hospital_name",res.data.hospital_name)
+
+
+                    console.log(res.data)
                         setcheck(true)
                         alert(res.data.id)
 
@@ -93,7 +98,7 @@ function HosSign() {
                             <button type="submit" className="btn btn-success">Login</button>
                         </div>
                         <div className="col-lg-6 col-sm-6 pt-2">
-                            Create Account? <Link to="/doctor/doc_register">Sign up</Link>
+                            Create Account? <Link to="/hospital/register">Sign up</Link>
                         </div>
                     </div>
 

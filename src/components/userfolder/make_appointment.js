@@ -10,9 +10,18 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
     let [showday, setshowday] = useState()
     let [mapping, setmapping] = useState([])
     let [date_of_appoinment, set_date_of_appointment] = useState()
-    let [number_patients,set_number_patients] = useState(1)
+    let [number_patients, set_number_patients] = useState(1)
 
     let [received_data, set_received_data] = useState({ "data": "", "isloading": false })
+
+    console.log(doctor_key)
+
+    if(!doctor_key)
+    {
+        return(<div>
+            <h1>Loading</h1>
+        </div>)
+    }
 
 
 
@@ -32,15 +41,21 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
         })
 
+        console.log(myarray)
+
         let odd_count = -1
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < timing_end[0].length; i++) {
             odd_count = odd_count + 2
             myarray.splice(odd_count, 0, timing_end[0][i])
+            console.log(myarray)
         }
 
+    
 
+        console.log(myarray)
 
         myarray.map((data1, key) => {
+            console.log(data1)
             let hour_min_mode = data1.split(" ")
             let mor_eve = hour_min_mode[1]
             mode.push(mor_eve)
@@ -132,19 +147,40 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
         //  START SLOTS---------------------------------
 
         let number_of_slots_per_day_start = 0;
-        let slots_of_weeks = data.start[indexx].split(",")
+        let slots_of_weeks;
+        if (doctor_key.count === 0) {
+            slots_of_weeks = data.start[indexx].split(",")
+        }
+        else if (doctor_key.count === 1) {
+            slots_of_weeks = data.start1[indexx].split(",")
+        }
+        else {
+            slots_of_weeks = data.start2[indexx].split(",")
+        }
+
         if (slots_of_weeks[day] !== "Holiday") {
             number_of_slots_per_day_start = slots_of_weeks[day].split("-")
             number_of_slots_per_day_start.pop()
             start.push(number_of_slots_per_day_start)
 
             //     END SLOTS------------------------
+            let slots_end ;
+            if (doctor_key.count === 0) {
+                slots_end = data.end[indexx].split(",")
+            }
+            else if (doctor_key.count === 1) {
+                slots_end = data.end1[indexx].split(",")
+            }
+            else {
+                slots_end = data.end2[indexx].split(",")
+            }
 
-            let slots_end = data.end[indexx].split(",")
 
             let a = slots_end[day].split("-")
             a.pop()
             end.push(a)
+            console.log("start",start)
+            console.log("end",end)
 
             let my_whole_slots = into_hours_minutes(start, end)
 
@@ -231,7 +267,9 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
         let appoinment_data = {
             "date": date_of_appoinment,
-            "doctor_id": doctor_key,
+            "doctor_id": doctor_key['doctor_key'],
+            "hospital_id":doctor_key['hospital_key'],
+            "count": doctor_key["count"],
             "time": value,
             "user_id": sessionStorage.getItem('user_id'),
             "patients": number_patients
@@ -250,11 +288,10 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
             'http://localhost/back_end/user_appointment.php', appoinment_data, headers
         ).then(
             res => {
-                if(res.data.signal == 2)
-                {
+                if (res.data.signal == 2) {
                     alert(res.data.id)
                 }
-                else{
+                else {
                     set_received_data({ "data": res.data, "isloading": true })
                 }
 
@@ -294,7 +331,7 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
                 </div>
                 <br></br>
                 <div className="row">
-                    Patients: 
+                    Patients:
                     <div className="col">
                         <select className="form-select" id="city" name="slot" onChange={(e) => set_number_patients(parseInt(e.target.value))} aria-label="Default select example">
                             <option value="1">1</option>

@@ -3,10 +3,10 @@ import Search from './search'
 import Navbar from './navbar'
 
 function Home() {
-    return(
+    return (
         <div>
-            <Navbar/>
-            <Search/>
+            <Navbar />
+            <Search />
         </div>
     );
 }

@@ -16,9 +16,12 @@ function User_Appointments() {
 
     let check_appointment = true
 
-    
+    // for doctors 
     let i = 1;
     let rows = []
+    //  for hospitals
+    let j= 1
+    let rows1 = []
     
 
     useEffect(() => {
@@ -50,12 +53,19 @@ function User_Appointments() {
         return (<h1>Loading...</h1>)
     else
     {
-        if(appointment['counter']>0)
+        if(appointment['counter']>0 || appointment['counter1'] > 0)
         {
             while (i <= appointment['counter']) {
                 rows.push(i)
                 i++
             }
+
+            while (j <= appointment['counter1']) {
+                rows1.push(j)
+                j++
+            }
+
+            
         }
         else{
             check_appointment = false
@@ -64,6 +74,7 @@ function User_Appointments() {
         
     }
 
+    console.log(appointment)
 
     function cancel_appointment(id)
     {
@@ -72,23 +83,36 @@ function User_Appointments() {
     }
       
 
+    let datee = new Date() / 1000
 
     return (
         <div>
             <Navbar/>
-            <h1 align="center">My Appointments</h1>
+            <h1 className="title">My Appointments</h1>
 
             
 
-                {/* <button className="btn btn-success">My profile</button> */}
+                {/*                      for doctors                   */}
                 {
                     check_appointment ? 
                     rows.map((data,key)=>{
-                        console.log(appointment)
+                        
+                        let change_css = "review_form"
+
+                        if(datee > new Date(appointment['date'][key]) / 1000 || appointment['status'][key] === "cancel"){
+                            change_css += "1"
+                        }
+                        else{
+                            console.log(datee,appointment['date'][key])
+                            change_css += "2"
+                        }
+
+
+
                         return(
 
                         
-                            <div className="review_form" key={key}>
+                            <div className={change_css} key={key}>
                                 <h1>Doctors Detail</h1>
                                 name:  <b>{appointment['name'][key]}</b><br></br>
                                 email: <b>{appointment['email'][key]}</b><br></br>
@@ -99,6 +123,8 @@ function User_Appointments() {
                                 number_of_appointments: <b>{appointment['patients'][key]}</b><br></br>
                                 doctor_id: <b>{appointment['doctor_id'][key]}</b><br></br>
                                 experience: <b>{appointment['experience'][key]}</b><br></br>
+                                clinic: <b>{appointment['clinic'][key]}</b><br></br>
+                                address: <b>{appointment['address'][key]}</b><br></br>
                                 {
                                     appointment['status'][key] === "active" ? 
                                     <input type="submit" className="btn btn-primary" onClick={()=>cancel_appointment(appointment['appointment_id'][key])} value="Cancel Appointment" />
@@ -113,6 +139,60 @@ function User_Appointments() {
                     <div className="review_form">
                         <h1>No Appointments Yet!</h1>
                     </div>
+                    
+
+                }
+
+
+
+
+                {/*    For hospitals */}
+
+
+                {
+                    check_appointment ? 
+                    rows1.map((data,key)=>{
+                        
+                        let change_css = "review_form"
+
+                        if(datee > new Date(appointment['date1'][key]) / 1000 || appointment['status1'][key] === "cancel"){
+                            change_css += "1"
+                        }
+                        else{
+                            console.log(datee,appointment['date1'][key])
+                            change_css += "2"
+                        }
+
+
+
+                        return(
+
+                        
+                            <div className={change_css} key={key}>
+                                <h1>Doctors Detail</h1>
+                                name:  <b>{appointment['name1'][key]}</b><br></br>
+                                email: <b>{appointment['email1'][key]}</b><br></br>
+                                city: <b>{appointment['city1'][key]}</b><br></br>
+                                phone: <b>{appointment['phone1'][key]}</b><br></br>
+                                appointment_date: <b>{appointment['date1'][key]}</b><br></br>
+                                slot: <b>{appointment['slot1'][key]}</b><br></br>
+                                number_of_appointments: <b>{appointment['patients1'][key]}</b><br></br>
+                                doctor_id: <b>{appointment['doctor_id1'][key]}</b><br></br>
+                                experience: <b>{appointment['experience1'][key]}</b><br></br>
+                                hospital: <b>{appointment['hospital'][key]}</b><br></br>
+                                address: <b>{appointment['address1'][key]}</b><br></br>
+                                {
+                                    appointment['status1'][key] === "active" ? 
+                                    <input type="submit" className="btn btn-primary" onClick={()=>cancel_appointment(appointment['appointment_id1'][key])} value="Cancel Appointment" />
+                                    :
+                                    <p className="error">Canceled!</p>
+                                }
+
+                            </div>
+                        )
+                    })
+                    :
+                    <div></div>
                     
 
                 }
