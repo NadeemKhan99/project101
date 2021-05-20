@@ -47,6 +47,7 @@ export const get_doctors = async(city,speciality) =>{
 
 
 
+
 export const get_max_user_appoints = async(user_id) =>{
     var headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -110,7 +111,7 @@ export const cancel_appoinments = async(cancel_id) =>{
         'http://localhost/back_end/user_cancel_appointment.php', values, headers
     ).then(
             res => {
-                return res.data
+                return res.data.message
             }
         );
     
@@ -209,5 +210,97 @@ export const get_hospital_appoinments = async(hospital_id) =>{
 }
 
 
+export const get_labs = async(city) =>{
+    var headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+    }
 
+
+    let values = {
+        city: city
+    }
+
+    
+    let data = await axios.post(
+        'http://localhost/back_end/getlabs.php', values, headers
+    ).then(
+            res => {
+                return res.data
+            }
+        );
+    
+    return data;
+}
+
+
+
+
+export const get_max_user_labs = async(user_id) =>{
+    var headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+    }
+
+
+    let values = {
+        id: user_id
+    }
+
+    
+    let data = await axios.post(
+        'http://localhost/back_end/getmaxuserslab.php', values, headers
+    ).then(
+            res => {
+                return res.data
+            }
+        );
+    
+    return data;
+}
+
+
+
+export const get_lab_appoinments = async(user_id) =>{
+    var headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+    }
+
+
+    let values = {
+        id: user_id
+    }
+
+    
+    let data = await axios.post(
+        'http://localhost/back_end/user_lab_appointment.php', values, headers
+    ).then(
+            res => {
+                return res.data
+            }
+        );
+    
+    return data;
+}
+
+
+export const get_appointments_lab = async(lab_id) =>{
+    var headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+    }
+
+
+    let values = {
+        id: lab_id
+    }
+
+    
+    let data = await axios.post(
+        'http://localhost/back_end/lab_appointments_get.php', values, headers
+    ).then(
+            res => {
+                return res.data
+            }
+        );
+    
+    return data;
+}
 

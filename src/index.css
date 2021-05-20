@@ -72,8 +72,11 @@ code {
   -ms-flex-align: center;
   align-items: center;
   font-family: 'Poppins', sans-serif;
-  padding: 15px;
+  padding-top: 0px;
+  background-color: #867a7a;
 }
+
+
 
 .s01 form{
   width: 100%;
@@ -92,6 +95,13 @@ code {
   align-items: center;
 }
 
+
+.searching{
+  padding-top: 0px;
+  text-align: center;
+  padding-bottom: 9px;
+  font-family :'Arial, Helvetica, sans-serif';
+}
 
 
 
@@ -202,4 +212,67 @@ code {
   border-radius: 5px;
   text-align: center;
   
+}
+
+
+.s02 {
+  min-height: 20vh;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  padding-top: 0px;
+}
+
+
+
+.s02 form{
+  width: 100%;
+  max-width: 1290px;
+}
+
+.s02 form .inner-form {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 50px 47px;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+
+
+
+/* 
+
+
+
+
+*/
+
+.title_div{
+  height: 400px;
+}
+.title_div > img {
+  width: 100%;
+  height: 400px;
+}
+
+.title_div > h3 {
+  text-align: center;
+  font-family: 'Courier New';
+}
+
+.whole_data{
+  margin-bottom: 50px;
+}
+
+.owner{
+  text-align: center;
 }

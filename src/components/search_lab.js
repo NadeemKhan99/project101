@@ -1,34 +1,23 @@
 import React, { useState } from 'react'
-import Slide from './sliders'
 import { useFormik } from "formik";
+import {Redirect} from 'react-router-dom'
 import * as yup from "yup";
 import './../index.css'
-import ShowDoctors from './userfolder/showsearch'
+import ShowLabs from './labs_module/search_lab/show_labs'
 import { Fragment } from 'react';
-import SearchLab from './search_lab'
-import Googly from './googlemaps/map_api'
-import {SelectCountry} from './covid_19/select_country'
 
-function Search(
-
-) {
+function SearchLab() {
 
 
     let [changepage, setchangepage] = useState(false)
     let [docdata, setdocdata] = useState({})
 
 
-    function changing(flag)
-    {
-        setchangepage(flag)
-
-    }
 
 
     const formik = useFormik({
         initialValues: {
-            city: "lahore",
-            category: ""
+            city: "lahore"
         },
         onSubmit: (values) => {
 
@@ -40,26 +29,27 @@ function Search(
 
         },
         validationSchema: yup.object({
-            category: yup.string().matches("[^none]", "This field is required!").required("This field is required!")
+
         })
     })
 
 
     if (changepage) {
-        return (<ShowDoctors value={docdata} callback={changing}/>)
+        return (<Redirect   to={{ pathname: "/lab/search",
+        state: { city_data: docdata }}}/>)
     }
 
 
     return (
         <Fragment>
-            <Slide />
-            <div className="s01">
+
+            <div className="s02">
                 <form onSubmit={formik.handleSubmit}>
                     <div className="row">
-                    <h2 className="searching">Search Doctor</h2>
+                    <h2 className="searching">Search Lab</h2>
                     </div>
                     <div className="row">
-                        <div className="col-lg-5 col-sm-12 mb-2">
+                        <div className="col-lg-10 col-sm-12 mb-2">
                             <select className="form-select" id="city" name="city" value={formik.values.city} onChange={formik.handleChange} aria-label="Default select example">
                                 <option value="lahore">Lahore</option>
                                 <option value="karachi">Karachi</option>
@@ -70,29 +60,15 @@ function Search(
                                 <option value="gujranwala">Gujranwala</option>
                             </select>
                         </div>
-                        <div className="col-lg-5 col-sm-6 mb-2">
-                            <select className="form-select" id="category" name="category" value={formik.values.category} onChange={formik.handleChange} aria-label="Default select example">
-                                <option value="none">Select Specialist</option>
-                                <option value="neurologist">Neurologist</option>
-                                <option value="child specialist">Child Specialist</option>
-                                <option value="gynecologist">Gynecologist</option>
-                                <option value="orthopadic surgeon">Orthopadic Surgeon</option>
-                                <option value="endocrinlogist">Endocrinlogist</option>
-                            </select>
-                            {formik.errors.category ? <div className="error">{formik.errors.category}</div> : ""}
 
-                        </div>
                         <div className="col-lg-2 col-sm-6 mb-2">
                             <input type="submit" className="btn btn-primary" value="Search" />
                         </div>
                     </div>
                 </form>
             </div>
-            <SearchLab/>
-            <Googly/>
-            <SelectCountry/>
         </Fragment>
     );
 }
 
-export default Search;
+export default SearchLab;

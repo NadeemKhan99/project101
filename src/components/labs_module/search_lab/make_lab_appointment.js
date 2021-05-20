@@ -2,7 +2,8 @@ import { Container } from '@material-ui/core';
 import React, { useState } from 'react'
 import { Fragment } from 'react';
 import axios from 'axios';
-import './../../index.css'
+import './../../../index.css'
+import Navbar from './../../navbar'
 
 function MakeApppointment({ data, doctor_key, indexx, callback }) {
     let [validdate, setvaliddate] = useState(false)
@@ -14,6 +15,7 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
     let [received_data, set_received_data] = useState({ "data": "", "isloading": false })
 
+    console.log(data)
     console.log(doctor_key)
 
     if(!doctor_key)
@@ -148,16 +150,9 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
         let number_of_slots_per_day_start = 0;
         let slots_of_weeks;
-        if (doctor_key.count === 0) {
+        
             slots_of_weeks = data.start[indexx].split(",")
-        }
-        else if (doctor_key.count === 1) {
-            slots_of_weeks = data.start1[indexx].split(",")
-        }
-        else {
-            slots_of_weeks = data.start2[indexx].split(",")
-        }
-
+        
         if (slots_of_weeks[day] !== "Holiday") {
             number_of_slots_per_day_start = slots_of_weeks[day].split("-")
             number_of_slots_per_day_start.pop()
@@ -165,15 +160,8 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
             //     END SLOTS------------------------
             let slots_end ;
-            if (doctor_key.count === 0) {
-                slots_end = data.end[indexx].split(",")
-            }
-            else if (doctor_key.count === 1) {
-                slots_end = data.end1[indexx].split(",")
-            }
-            else {
-                slots_end = data.end2[indexx].split(",")
-            }
+            slots_end = data.end[indexx].split(",")
+            
 
 
             let a = slots_end[day].split("-")
@@ -240,9 +228,7 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
         let din = 0;
         let present_date = new Date()
         let appoinment_date = new Date(e.target.value)
-        console.log(present_date - appoinment_date)
         if (present_date - appoinment_date > 0) {
-            console.log("hiii")
             setvaliddate(false)
         }
         else {
@@ -269,9 +255,7 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
         let appoinment_data = {
             "date": date_of_appoinment,
-            "doctor_id": doctor_key['doctor_key'],
-            "hospital_id":doctor_key['hospital_key'],
-            "count": doctor_key["count"],
+            "lab_id": doctor_key['lab_key'],
             "time": value,
             "user_id": sessionStorage.getItem('user_id'),
             "patients": number_patients
@@ -285,9 +269,10 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
         }
 
 
+        console.log(appoinment_data)
 
         axios.post(
-            'http://localhost/back_end/user_appointment.php', appoinment_data, headers
+            'http://localhost/back_end/lab_appointment.php', appoinment_data, headers
         ).then(
             res => {
                 if (res.data.signal == 2) {
@@ -305,10 +290,14 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
     if (received_data["isloading"]) {
         return (
+            <Fragment>
+                <Navbar/>
+            
             <div className="review_form">
                 <h1>Appointment made</h1>
 
             </div>
+            </Fragment>
 
         )
     }
@@ -321,6 +310,7 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
     return (
         <Fragment>
+            <Navbar/>
             <div className="review_form">
                 <div className="row">
                     <h3>Book Appointment</h3>
@@ -351,63 +341,14 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
                                     <h1>{getmeday(showday)}</h1>
                                 </div>
                             </div>
-                            {
-                    !holiday ?
-                        mapping.map((data, kee) => {
-
-                            return (
-
-                                <div className="row" key={kee}>
-                                    <h4>Shift {kee + 1}</h4>
-
-
-
-
-                                    <div className="col">
-                                        {
-                                            data.map((a, b) => {
-                                                let time_slots = a.split(":")
-                                                let c = a
-                                                parseInt(time_slots[0]) > 12 ? a = `${parseInt(time_slots[0]) - 12}:${time_slots[1]} PM` : a = `${time_slots[0]}:${time_slots[1]} AM`
-                                                parseInt(time_slots[0]) === 12 ? a = `${parseInt(time_slots[0])}:${time_slots[1]} PM` : <div></div>
-                                                parseInt(time_slots[0]) === 0 ? a = `${parseInt(time_slots[0]) + 12}:${time_slots[1]} AM` : <div></div>
-
-
-
-
-
-                                                return (
-                                                    <Fragment key={b}>
-                                                        <button value={a} onClick={(e) => onclick_submit(e.target.value)} className="btn btn-outline-success appoinment">{a}</button>
-                                                    </Fragment>
-                                                )
-                                            })
-                                        }
-                                    </div>
-
-                                </div>
-                            )
-
-                        })
-
-
-
-                        :
-
-                        <h5>Holiday</h5>
-
-
-
-
-                }
                         </div>
                         :
-                        <div className="error">Not Valid</div>
+                        <div className="error"></div>
 
 
                 }
 
-                {/* {
+                {
                     !holiday ?
                         mapping.map((data, kee) => {
 
@@ -455,7 +396,7 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
 
 
-                } */}
+                }
                 <button className="btn btn-primary back" onClick={() => callback(0, false)}>Back</button>
             </div>
         </Fragment>

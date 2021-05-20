@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import { useFormik, Field } from "formik";
+import {Link} from 'react-router-dom'
 import * as yup from "yup";
 import "./../../../index.css"
 import Navbar from './../../navbar'
@@ -165,7 +166,7 @@ function SignupForm({ preValues }) {
                                 <button type="submit" className="btn btn-success float-right">Update</button>
                             </div>
                             <div className="col">
-
+                            <Link to="/update_password" className="btn btn-primary back float-right">Change Password</Link>
                             </div>
                         </div>
                     </div>

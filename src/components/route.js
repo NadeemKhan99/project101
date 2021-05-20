@@ -16,6 +16,13 @@ import Hospital from './hospital_page'
 import SearchDoctor from './hospitals/add_doctors/search_doctor'
 import ShowHosDoctors from './hospitals/show_hospital_data/my_doctors'
 import Hospital_Appointments from './hospitals/show_hospital_data/show_appointments_detail'
+import LabStepper from './labs_module/stepper'
+import LabUpdate from './labs_module/update_lab/stepper'
+import Lab_Appointments from './labs_module/appointments'
+import ShowLabs from './labs_module/search_lab/show_labs'
+import User_Lab_Appointments from './userfolder/lab_appointments'
+import User_Update from './userfolder/update_account'
+import UpdatePassword from './userfolder/update_password'
 
 function RouteConfig()
 {
@@ -39,6 +46,13 @@ function RouteConfig()
                     <Route exact path="/accounts" component={AllUers}/>
                     <Route exact path="/update" component={SignupForm}/>
                     <Route exact path="/hospital/appointments" component={Hospital_Appointments}/>
+                    <Route exact path="/lab_register" component={LabStepper}/>
+                    <Route exact path="/lab/update" component={LabUpdate}/>
+                    <Route exact path="/lab/search" component={ShowLabs}/>
+                    <Route exact path="/my_labs" component={User_Lab_Appointments}/>
+                    <Route exact path="/lab/appointments" component={Lab_Appointments}/>
+                    <Route exact path="/user_updates" component={User_Update}/>
+                    <Route exact path="/update_password" component={UpdatePassword}/>
                     
                     
                 </Switch>

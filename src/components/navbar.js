@@ -30,6 +30,7 @@ function Navbar() {
     let [user_check, setuser_check] = useState(sessionStorage.getItem('user_id') || false)
 
     let [no_user, set_no_user] = useState(sessionStorage.getItem('email') || false)
+    let [lab_true, set_lab_true] = useState(sessionStorage.getItem('lab_id') || false)
 
     let [hospital_true, set_hospital_true] = useState(sessionStorage.getItem('hospital_id') || false)
 
@@ -49,6 +50,7 @@ function Navbar() {
         setuser_check(false)
         set_no_user(false)
         set_hospital_true(false)
+        set_lab_true(false)
 
         sessionStorage.clear()
 
@@ -160,19 +162,13 @@ function Navbar() {
                                 user_check ?
                                     <Fragment>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" hidden to="/doctor">Doctors</Link>
+                                            <Link className="nav-link linkii" to="/my_appointments" >Doctor Appointments</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" hidden to="/hospital">Hospitals</Link>
+                                            <Link className="nav-link linkii" to="/my_labs" >Lab Appointments</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" hidden to="/lab">Labs</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link linkii" hidden to="/login">Sign in</Link>
-                                        </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/my_appointments" >Appointments</Link>
+                                            <Link className="nav-link linkii" to="/user_updates">Update Account</Link>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link linkii" onClick={logout}>Logout</a>
@@ -203,6 +199,29 @@ function Navbar() {
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link linkii" hidden onClick={logout}>Logout</a>
+                                        </li>
+                                    </Fragment>
+
+                                    :
+                                    <div></div>
+
+                            }
+
+                            {/*----------------------------------------------for labs--------------------------------------------------- */}
+                            {
+                                lab_true ?
+                                    <Fragment>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/lab/appointments">Appointments</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/lab/update">Update Account</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                        <a className="nav-link linkii" >{sessionStorage.getItem("name")}</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a className="nav-link linkii" onClick={logout}>Logout</a>
                                         </li>
                                     </Fragment>
 

@@ -1,7 +1,58 @@
-import React from 'react'
 import Navbar from './navbar'
+import React, { Fragment } from 'react'
+import { useFormik,Field } from "formik";
+import * as yup from "yup";
+import "./../index.css"
+import axios from 'axios';
 
 function Contact() {
+
+
+
+    const formik = useFormik({
+        initialValues: {
+            name: "",
+            email: "",
+            address: "",
+        },
+        onSubmit: values => {
+           
+            
+
+
+            var headers = {
+                "Content-Type": "application/json;charset=UTF-8",
+            }
+
+
+
+            axios.post(
+                'http://localhost/back_end/contact.php', values, headers
+            ).then(
+                res => {
+                    alert(res.data.id)
+                    
+                }
+            );
+
+        },
+        validationSchema: yup.object({
+            name: yup.string().matches("^[a-zA-Z ]{1,}[^0-9]$", "Invalid name, only use text").required("This field is required!"),
+            email: yup.string().email("Invalid Email").required("This field is required!"),
+            address: yup.string().required("This field is required!")
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
     return(
         <div>
             <Navbar/>
@@ -13,45 +64,30 @@ function Contact() {
 
         <div className="fcf-form-wrap">
             <div id="fcf-form">
-                <form className="fcf-form-className">
+            <form onSubmit={formik.handleSubmit}>
+                <div className="mb-2 p-2">
+                    <label htmlFor="name" className="form-label float-left"><b>Name</b></label>
+                    <input type="text" className="form-control" value={formik.values.name} onChange={formik.handleChange} id="name" placeholder="Enter name" />
+                    {formik.errors.name ? <div className="error">{formik.errors.name}</div> : ""}
+                </div>
 
-                    <div className="fcf-field">
-                        <label htmlFor="Name" className="fcf-label has-text-weight-normal">Your name</label>
-                        <div className="fcf-control">
-                            <input type="text" name="Name" id="Name" className="fcf-input is-full-width"
-                                data-validate-field="Name"/>
-                        </div>
-                    </div>
-                    <div className="fcf-field">
-                        <label htmlFor="Email" className="fcf-label has-text-weight-normal">Your email address</label>
-                        <div className="fcf-control">
-                            <input type="email" name="Email" id="Email" className="fcf-input is-full-width"
-                                data-validate-field="Email"/>
-                        </div>
-                    </div>
-                    <div className="fcf-field">
-                        <label htmlFor="Phone" className="fcf-label has-text-weight-normal">Your phone number (optional)</label>
-                        <div className="fcf-control">
-                            <input type="text" name="Phone" id="Phone" className="fcf-input is-full-width"
-                                data-validate-field="Phone"/>
-                        </div>
-                    </div>
-                    <div className="fcf-field">
-                        <label htmlFor="Message" className="fcf-label has-text-weight-normal">Your message</label>
-                        <div className="fcf-control">
-                            <textarea name="Message" id="Message" className="fcf-textarea" rows="5"
-                                data-validate-field="Message"></textarea>
-                        </div>
-                    </div>
-                    <div id="fcf-status" className="fcf-status"></div>
-                    <div className="fcf-field">
-                        <div className="fcf-buttons">
-                            <button id="fcf-button" type="submit" className="btn btn-success fcf-button is-link is-medium is-fullwidth">Send
-                                Message</button>
-                        </div>
-                    </div>
-                    
-                </form>
+                <div className="mb-2 p-2">
+                    <label htmlFor="email" className="form-label float-left"><b>Email</b></label>
+                    <input type="email" className="form-control" value={formik.values.email} onChange={formik.handleChange} id="email" placeholder="Enter email" />
+                    {formik.errors.email ? <div className="error">{formik.errors.email}</div> : ""}
+                </div>
+
+                <div className="mb-2 p-2">
+                    <label htmlFor="address" className="form-label float-left"><b>Message</b></label>
+                    <textarea className="form-control" value={formik.values.address} onChange={formik.handleChange} id="address" placeholder="Enter Message..."></textarea>
+                    {formik.errors.address ? <div className="error">{formik.errors.address}</div> : ""}
+                </div>
+
+
+                <div className="mb-6 p-2 register_button">
+                    <button type="submit" className="btn btn-success">Send</button>
+                </div>
+            </form>
             </div>
         </div>
     </div>
@@ -62,3 +98,8 @@ function Contact() {
 }
 
 export default Contact;
+
+
+
+
+
