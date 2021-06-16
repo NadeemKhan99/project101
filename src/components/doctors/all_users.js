@@ -156,7 +156,7 @@ function AllUers({flagg = false}) {
     return (
         <div>
             <Navbar />
-            <h1 className="title">My Accounts</h1>
+            <h1 className="title">My Sittings   </h1>
 
 
 

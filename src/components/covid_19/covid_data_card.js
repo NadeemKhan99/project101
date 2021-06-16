@@ -86,7 +86,7 @@ export const CovidData = ({ country_name }) => {
                 <Grid item className={classes.title} md={3} sm={12} xs={8}>
                     <h2 className={classes.title}>Covid-19</h2>
                     <p style={{ justifyContent: 'center', marginTop: 0, textAlign: 'justify' }}>
-                        The coronavirus, or COVID-19, caused a lot of damage including life because it's a new virus, meaning no one has immunity, and there is no vaccine. Its novelty means that scientists aren't sure yet how it behaves. And We are showing the details of cases in different countries affected by Covid-19.
+                        The coronavirus, or COVID-19, caused a lot of damage including life, meaning no one has immunity. Scientists finally prepared the vaccines and cases are droping day by day in different countries. We are showing the details of cases in different countries affected by Covid-19.
                     </p>
                 </Grid>
                 <Grid item md={2} sm={12} xs={8} className={classes.grid}>

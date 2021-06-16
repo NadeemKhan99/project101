@@ -9,7 +9,6 @@ import Navbar from './../navbar'
 
 function UpdatePassword() {
 
-    let [check, setcheck] = useState(true)
     let [confirm, setconfirm] = useState(true)
     const formik = useFormik({
         initialValues: {

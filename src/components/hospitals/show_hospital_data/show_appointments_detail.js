@@ -64,6 +64,26 @@ function Hospital_Appointments() {
             <Navbar/>
             <h1 className="title">My Patients</h1>
 
+            <div className="review_form">
+                <p><b>Search by Name</b></p>
+            {
+                check_appointment ? 
+                rows.map((data,key)=>{
+                    return(
+                        <div key={key}>
+                            <a href={"#"+appointment['slot'][key]+appointment['date'][key]+appointment['email1'][key]}>{appointment.name[key]} ({appointment.name1[key]})</a>
+                        </div>
+                    )
+                })
+
+                :
+                ""
+            }
+            </div>
+
+
+
+
             
 
                 {/*                      for doctors                   */}
@@ -86,7 +106,7 @@ function Hospital_Appointments() {
                         return(
 
                         
-                            <div className={change_css} key={key}>
+                            <div className={change_css} key={key} id={appointment['slot'][key]+appointment['date'][key]+appointment['email1'][key]}>
                                 <h3>Doctor Detail</h3>
                                 name:  <b>{appointment['name'][key]}</b><br></br>
                                 email: <b>{appointment['email'][key]}</b><br></br>

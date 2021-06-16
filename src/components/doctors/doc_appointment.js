@@ -58,7 +58,8 @@ function Appointments() {
     console.log(appointment)
       
 
-    let datee = new Date()
+    let datee = new Date() / 1000
+
 
 
     return (
@@ -75,7 +76,8 @@ function Appointments() {
                         
                         let change_css = "review_form"
 
-                        if(datee > appointment['date'][key] || appointment['status'][key] === "cancel"){
+                        if(datee > new Date(appointment['date'][key]) / 1000 || appointment['status'][key] === "cancel"){
+                    
                             change_css += "1"
                         }
                         else{
@@ -85,14 +87,85 @@ function Appointments() {
 
                         return(
                             <div className={change_css} key={key}> 
-                                name:  {appointment['name'][key]}<br></br>
-                                {appointment['email'][key]}<br></br>
-                                {appointment['city'][key]}<br></br>
-                                {appointment['phone'][key]}<br></br>
-                                {appointment['date'][key]}<br></br>
-                                {appointment['slot'][key]}<br></br>
-                                Patients: {appointment['patients'][key]}<br></br>
-                                Place: {appointment['clinic'][key]}
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Name:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['name'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Email:</b> 
+                                    </div>
+                                    <div className="col">
+                                    {appointment['email'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>City</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['city'][key]}
+                                    </div>
+
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Phone:</b>  
+                                    </div>
+                                    <div className="col">
+                                    0{appointment['phone'][key]}
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Date:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['date'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Slot:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['slot'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Patients:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['patients'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Clinic:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['clinic'][key]}
+                                    </div>
+
+                                </div>
+                                
+
+                               
                             </div>
                         )
                     })
@@ -112,7 +185,8 @@ function Appointments() {
                         
                         let change_css = "review_form"
 
-                        if(datee > appointment['date1'][key] || appointment['status1'][key] === "cancel"){
+                        if(datee > new Date(appointment['date1'][key]) / 1000 || appointment['status1'][key] === "cancel"){
+                    
                             change_css += "1"
                         }
                         else{
@@ -122,14 +196,83 @@ function Appointments() {
 
                         return(
                             <div className={change_css} key={key}> 
-                                name:  {appointment['name1'][key]}<br></br>
-                                {appointment['email1'][key]}<br></br>
-                                {appointment['city1'][key]}<br></br>
-                                {appointment['phone1'][key]}<br></br>
-                                {appointment['date1'][key]}<br></br>
-                                {appointment['slot1'][key]}<br></br>
-                                Patients: {appointment['patients1'][key]}<br></br>
-                                Place: {appointment['hospital'][key]}
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Name:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['name1'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Email:</b> 
+                                    </div>
+                                    <div className="col">
+                                    {appointment['email1'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>City</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['city1'][key]}
+                                    </div>
+
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Phone:</b>  
+                                    </div>
+                                    <div className="col">
+                                    0{appointment['phone1'][key]}
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Date:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['date1'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Slot:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['slot1'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Patients:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['patients1'][key]}
+                                    </div>
+
+                                </div>
+
+                                <div className="row">
+                                    <div className="col">
+                                    <b>Place:</b>  
+                                    </div>
+                                    <div className="col">
+                                    {appointment['hospital'][key]}
+                                    </div>
+
+                                </div>
+                            
                             </div>
                         )
                     })

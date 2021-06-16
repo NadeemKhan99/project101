@@ -48,7 +48,7 @@ function ShowDoctors({ value, callback }) {
 
         max_appoints(id_user)
 
-    }, [id_user]);
+    }, [value || id_user]);
 
 
 

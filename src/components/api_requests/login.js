@@ -304,3 +304,27 @@ export const get_appointments_lab = async(lab_id) =>{
     return data;
 }
 
+
+export const get_cities = async() =>{
+    var headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+    }
+
+
+
+    let values = {
+        id: 0
+    }
+
+    
+    let data = await axios.post(
+        'http://localhost/back_end/get_cities.php', values, headers
+    ).then(
+            res => {
+                return res.data
+            }
+        );
+    
+    return data;
+}
+

@@ -23,6 +23,7 @@ import ShowLabs from './labs_module/search_lab/show_labs'
 import User_Lab_Appointments from './userfolder/lab_appointments'
 import User_Update from './userfolder/update_account'
 import UpdatePassword from './userfolder/update_password'
+import Hospital_Update from './hospitals/update_hospital/update_hospital_data'
 
 function RouteConfig()
 {
@@ -53,7 +54,7 @@ function RouteConfig()
                     <Route exact path="/lab/appointments" component={Lab_Appointments}/>
                     <Route exact path="/user_updates" component={User_Update}/>
                     <Route exact path="/update_password" component={UpdatePassword}/>
-                    
+                    <Route exact path="/update_hospital" component={Hospital_Update}/>                    
                     
                 </Switch>
             </Router>

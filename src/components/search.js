@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Slide from './sliders'
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -7,19 +7,33 @@ import ShowDoctors from './userfolder/showsearch'
 import { Fragment } from 'react';
 import SearchLab from './search_lab'
 import Googly from './googlemaps/map_api'
-import {SelectCountry} from './covid_19/select_country'
+import { SelectCountry } from './covid_19/select_country'
+import {get_cities} from './api_requests/login'
 
-function Search(
-
-) {
+function Search(){
 
 
     let [changepage, setchangepage] = useState(false)
     let [docdata, setdocdata] = useState({})
+    let [mycity,setcities] = useState([])
 
 
-    function changing(flag)
-    {
+
+    let rows = []
+    let i = 1
+
+    useEffect(() => {
+        async function get_info() {
+            let real_data = await get_cities();
+
+            setcities(real_data);
+        }
+        get_info();
+    }, [docdata,mycity]);
+
+
+
+    function changing(flag) {
         setchangepage(flag)
 
     }
@@ -44,9 +58,17 @@ function Search(
         })
     })
 
+    if(mycity)
+    {
+        while (i <= mycity['counter']) {
+            rows.push(i)
+            i++
+        }
+    }
+
 
     if (changepage) {
-        return (<ShowDoctors value={docdata} callback={changing}/>)
+        return (<ShowDoctors value={docdata} callback={changing} />)
     }
 
 
@@ -56,18 +78,20 @@ function Search(
             <div className="s01">
                 <form onSubmit={formik.handleSubmit}>
                     <div className="row">
-                    <h2 className="searching">Search Doctor</h2>
+                        <div className="col float-left">
+                            <h2>Search Doctor</h2>
+                        </div>
                     </div>
                     <div className="row">
                         <div className="col-lg-5 col-sm-12 mb-2">
                             <select className="form-select" id="city" name="city" value={formik.values.city} onChange={formik.handleChange} aria-label="Default select example">
-                                <option value="lahore">Lahore</option>
-                                <option value="karachi">Karachi</option>
-                                <option value="islamabad">Islamabad</option>
-                                <option value="rawalpindi">Rawalpindi</option>
-                                <option value="sargodha">Sargodha</option>
-                                <option value="shahdara">Shahdara</option>
-                                <option value="gujranwala">Gujranwala</option>
+                            {
+                                    rows.map((data,key)=>{
+                                        return(
+                                            <option key={key} value={mycity.cities[key]}>{mycity.cities[key].toUpperCase()}</option>
+                                        )
+                                    })
+                                }
                             </select>
                         </div>
                         <div className="col-lg-5 col-sm-6 mb-2">
@@ -88,9 +112,9 @@ function Search(
                     </div>
                 </form>
             </div>
-            <SearchLab/>
-            <Googly/>
-            <SelectCountry/>
+            <SearchLab />
+            <Googly />
+            <SelectCountry />
         </Fragment>
     );
 }

@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(173, 169, 169);
 }
 
 code {
@@ -114,6 +115,7 @@ code {
   margin-bottom: 50px;
   border-radius: 5px;
   text-align: center;
+  background-color: honeydew;
 
 }
 
@@ -126,6 +128,7 @@ code {
   margin-bottom: 50px;
   border-radius: 5px;
   text-align: center;
+  background-color: honeydew;
 }
 
 .link_disabled:disabled{
@@ -199,6 +202,7 @@ code {
   margin-bottom: 50px;
   border-radius: 5px;
   text-align: center;
+  background-color: honeydew;
   
 }
 
@@ -211,7 +215,7 @@ code {
   margin-bottom: 50px;
   border-radius: 5px;
   text-align: center;
-  
+  background-color: honeydew;
 }
 
 
@@ -275,4 +279,9 @@ code {
 
 .owner{
   text-align: center;
+}
+
+
+.pic_div{
+  height: 305px;
 }

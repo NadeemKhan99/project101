@@ -1,12 +1,12 @@
 import React, { Fragment } from 'react'
-import { useFormik, Field } from "formik";
+import { useFormik } from "formik";
 import {Redirect,Link} from 'react-router-dom'
 import * as yup from "yup";
-import "./../../index.css"
-import Navbar from './../navbar'
+import "./../../../index.css"
+import Navbar from './../../navbar'
 import axios from 'axios'
 
-function User_Update() {
+function Hospital_Update() {
 
 
 
@@ -22,6 +22,7 @@ function User_Update() {
             city: sessionStorage.getItem("city"),
             phone: sessionStorage.getItem("phone"),
             address: sessionStorage.getItem("address"),
+            hospital_name: sessionStorage.getItem("hospital_name")
         },
         onSubmit: values => {
 
@@ -41,6 +42,7 @@ function User_Update() {
                         sessionStorage.setItem("city", values.city)
                         sessionStorage.setItem("phone", values.phone)
                         sessionStorage.setItem("address", values.address)
+                        sessionStorage.setItem("hospital_name", values.hospital_name)
                     }
                     alert(res.data.id)
                 }
@@ -59,7 +61,8 @@ function User_Update() {
             email: yup.string().email("Invalid Email").required("This field is required!"),
             city: yup.string().matches("^[a-zA-Z]{3,}$", "Only use text must be greater than 3 words").required("This field is required!"),
             phone: yup.string().matches("^[1-9]{1}[0-9]{9}$", "Start number with 1-9 and must 10 digit long").required("This field is required!"),
-            address: yup.string().required("This field is required!")
+            address: yup.string().required("This field is required!"),
+            hospital_name:yup.string().matches("^[a-zA-Z ]{1,}[^0-9]$", "Invalid name, only use text").required("This field is required!"),
         })
     })
 
@@ -106,6 +109,12 @@ function User_Update() {
                         {formik.errors.address ? <div className="error">{formik.errors.address}</div> : ""}
                     </div>
 
+                    <div className="mb-2 p-2">
+                        <label htmlFor="hospital_name" className="form-label">Hospital Name</label>
+                        <input type="text" className="form-control" value={formik.values.hospital_name} onChange={formik.handleChange} id="hospital_name" placeholder="Enter hospital name" />
+                        {formik.errors.hospital_name ? <div className="error">{formik.errors.hospital_name}</div> : ""}
+                    </div>
+
 
                     <div className="mb-6 p-2 register_button">
                         <div className="row">
@@ -129,4 +138,4 @@ function User_Update() {
 }
 
 
-export default User_Update;
+export default Hospital_Update;

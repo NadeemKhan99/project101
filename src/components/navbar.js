@@ -68,14 +68,14 @@ function Navbar() {
         <div>
             <nav className="navbar sticky-top navbar-expand-lg navi">
                 <div className="container">
-                    <a className="navbar-brand brandi" href="#">docForY</a>
+                    <a className="navbar-brand brandi" href="#">docForU</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link linkii" to="/">Home</Link>
+                                <Link className="nav-link linkii"  to="/">Home</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link linkii" to="/about">About us</Link>
@@ -127,10 +127,7 @@ function Navbar() {
                                         <li className="nav-item">
                                             <Link className="nav-link linkii" hidden to="/doctor">Doctors</Link>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/hospital">Hospitals</Link>
-                                        </li>
-
+                            
                                         <li className="nav-item">
                                             <Link className="nav-link linkii" to="/search_doctor">Add Doctors</Link>
                                         </li>
@@ -143,7 +140,11 @@ function Navbar() {
                                         </li>
 
                                         <li className="nav-item">
-                                        <a className="nav-link linkii" >{sessionStorage.getItem("hospital_name")}</a>
+                                            <Link className="nav-link linkii" to="/hospital">{sessionStorage.getItem("hospital_name")}</Link>
+                                        </li>
+
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/update_hospital" >Update Account</Link>
                                         </li>
 
                                         <li className="nav-item">
@@ -168,7 +169,7 @@ function Navbar() {
                                             <Link className="nav-link linkii" to="/my_labs" >Lab Appointments</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/user_updates">Update Account</Link>
+                                            <Link className="nav-link linkii" to="/user_updates">{sessionStorage.getItem("name")}</Link>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link linkii" onClick={logout}>Logout</a>

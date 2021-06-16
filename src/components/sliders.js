@@ -19,7 +19,7 @@ function Slide() {
                         <img src={image_hos} className="d-block w-100 tales" alt="Doctor" />
                         <div className="carousel-caption d-none d-md-block">
                             <h5>Hospitals</h5>
-                            <p>Find nearest hospitals.</p>
+                            <p>Hospitals can register themselves</p>
                         </div>
                     </div>
 
@@ -28,7 +28,7 @@ function Slide() {
                         <img src={image_doc} className="d-block w-100 tales" alt="Doctor" />
                         <div className="carousel-caption d-none d-md-block">
                             <h5>Doctors</h5>
-                            <p>Find nearest doctors.</p>
+                            <p>Make Appointments with doctors</p>
                         </div>
                     </div>
 
@@ -37,7 +37,7 @@ function Slide() {
                         <img src={image_lab} className="d-block w-100 tales" alt="Doctor" />
                         <div className="carousel-caption d-none d-md-block">
                             <h5>Labs</h5>
-                            <p>Make lab tests to your nearest lab.</p>
+                            <p>Make Appointments with Labs</p>
                         </div>
                     </div>
                 </div>
