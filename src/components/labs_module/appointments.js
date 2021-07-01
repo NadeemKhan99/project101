@@ -106,6 +106,8 @@ function Lab_Appointments() {
                                 address: <b>{appointment['address'][key]}</b><br></br>
                                 <hr></hr>
                                 <h3>Appointment Time</h3>
+                                service: <b>{appointment['service'][key]}</b><br></br>
+                                fee: <b>{appointment['fee'][key]}</b><br></br>
                                 slot: <b>{appointment['slot'][key]}</b><br></br>
                                 date: <b>{appointment['date'][key]}</b><br></br>
                                 # of patients: <b>{appointment['patients'][key]}</b><br></br> 

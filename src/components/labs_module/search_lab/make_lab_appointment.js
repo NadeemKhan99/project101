@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import axios from 'axios';
 import './../../../index.css'
 import Navbar from './../../navbar'
+import { set } from 'mongoose';
 
 function MakeApppointment({ data, doctor_key, indexx, callback }) {
     let [validdate, setvaliddate] = useState(false)
@@ -12,11 +13,40 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
     let [mapping, setmapping] = useState([])
     let [date_of_appoinment, set_date_of_appointment] = useState()
     let [number_patients, set_number_patients] = useState(1)
+    let [service, set_service] = useState()
 
     let [received_data, set_received_data] = useState({ "data": "", "isloading": false })
 
     console.log(data)
     console.log(doctor_key)
+
+    let fee_data = data.fee[indexx].split("|")
+    let lab_services = data.speciality[indexx].split("|")
+
+    let fee_data_without_spcaes = []
+    let lab_services_without_spcaes = []
+    
+
+    for (let j = 0; fee_data.length - 1 >= j; j++) {
+        if(fee_data[j] !== "")
+        {
+            fee_data_without_spcaes.push(fee_data[j].trim())
+        }
+    }
+
+    for (let j = 0; lab_services.length - 1 >= j; j++) {
+        if(lab_services[j] !== "")
+        {
+            lab_services_without_spcaes.push(lab_services[j].trim())
+        }
+    }
+
+    console.log(fee_data_without_spcaes,lab_services_without_spcaes)
+    
+
+    let [fee,set_fee] = useState(fee_data_without_spcaes[0])
+
+
 
     if(!doctor_key)
     {
@@ -189,7 +219,7 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
 
 
-
+        //  appointments
 
 
 
@@ -258,7 +288,9 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
             "lab_id": doctor_key['lab_key'],
             "time": value,
             "user_id": sessionStorage.getItem('user_id'),
-            "patients": number_patients
+            "patients": number_patients,
+            "service": service,
+            "fee": fee
         }
 
         console.log(appoinment_data)
@@ -304,6 +336,18 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
 
 
 
+    function set_services_lab(e)
+    {
+        e.preventDefault()
+
+        set_service(lab_services_without_spcaes[parseInt(e.target.value)])
+        set_fee(fee_data_without_spcaes[parseInt(e.target.value)])
+
+
+    }
+
+
+
 
 
 
@@ -331,6 +375,44 @@ function MakeApppointment({ data, doctor_key, indexx, callback }) {
                         </select>
                     </div>
                 </div>
+
+                <br></br>
+                <div className="row">
+                        Services:
+                    <div className="col">
+                        <select className="form-select" id="city" name="slot" onChange={(e) => set_services_lab(e)} aria-label="Default select example">
+                            {
+                                lab_services_without_spcaes.map((data,key)=>{
+                                    return(
+                                        <Fragment key={key}>
+                                                <option value={key}>{data}</option>
+                                        </Fragment>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
+                </div>
+                
+                <br></br>
+
+                <div className="row">
+                    <div className="col col-6">
+                        <span>Fee</span>
+                        
+                    </div>
+                    <div className="col col-6">
+                        <h5>PKR: <i>{fee}</i></h5>
+                    </div>
+                </div>
+
+                
+
+            
+
+
+
+
 
                 <br></br>
                 {

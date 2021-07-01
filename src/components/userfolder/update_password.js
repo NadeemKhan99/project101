@@ -25,6 +25,7 @@ function UpdatePassword() {
 
             if (confirm === values.new_password) {
 
+                console.log(sessionStorage.getItem("password"))
 
                 if (values.password !== sessionStorage.getItem("password")) {
                     alert("Wrong Password")

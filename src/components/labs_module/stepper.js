@@ -37,7 +37,7 @@ function getStepContent(stepIndex, setStep, setformValues, formValues, setformVa
         case 0:
             return <SignupForm submit={setStep} preValues={formValues} setformValues={setformValues}/>;
         case 1:
-            return <EducationForm submit={setStep} setformValuesEducation={setformValuesEducation}/>;
+            return <EducationForm submit={setStep} setformValuesEducation={setformValuesEducation} formValuesEducation={formValuesEducation}/>;
         case 2:
             return <DocSlots submit={setStep} set_values={set_doctor_slots}/>;
         case 3:
@@ -60,7 +60,8 @@ export default function LabStepper() {
     })
 
     const [formValuesEducation, setformValuesEducation] = React.useState({
-        speciality: ""
+        speciality: "",
+        fee: ""
     })
 
     const steps = getSteps();

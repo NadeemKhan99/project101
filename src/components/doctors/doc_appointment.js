@@ -159,7 +159,7 @@ function Appointments() {
                                     <b>Clinic:</b>  
                                     </div>
                                     <div className="col">
-                                    {appointment['clinic'][key]}
+                                    <b>{appointment['clinic'][key]}</b>
                                     </div>
 
                                 </div>
@@ -268,7 +268,7 @@ function Appointments() {
                                     <b>Place:</b>  
                                     </div>
                                     <div className="col">
-                                    {appointment['hospital'][key]}
+                                    <b>{appointment['hospital'][key]}</b>
                                     </div>
 
                                 </div>

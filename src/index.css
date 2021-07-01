@@ -285,3 +285,20 @@ code {
 .pic_div{
   height: 305px;
 }
+
+.title_docforyou{
+  padding-top: 8px;
+  margin-right: 8px;
+}
+
+.logo_width{
+  width: 56px;
+}
+
+.logo_width button {
+    display: block;
+    height: 100%;
+    border: none;
+    padding: 0px 10px;
+    border-radius: 5px;
+}

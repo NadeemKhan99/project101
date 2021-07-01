@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { green, pink } from '@material-ui/core/colors';
 import { useHistory } from "react-router-dom";
 import { Fragment } from 'react';
+import './../index.css'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -68,20 +69,14 @@ function Navbar() {
         <div>
             <nav className="navbar sticky-top navbar-expand-lg navi">
                 <div className="container">
-                    <a className="navbar-brand brandi" href="#">docForU</a>
+                    <h2 className="title_docforyou">docForU</h2>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link linkii"  to="/">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link linkii" to="/about">About us</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link linkii" to="/contact">Contact us</Link>
+                                <Link className="nav-link linkii" to="/">Home</Link>
                             </li>
 
                             {/*----------------------------------------------For doctor--------------------------------------------------- */}
@@ -109,6 +104,12 @@ function Navbar() {
                                             <Link className="nav-link linkii" hidden to="/login">Sign in</Link>
                                         </li>
                                         <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/about">About us</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/contact">Contact us</Link>
+                                        </li>
+                                        <li className="nav-item">
                                             <a className="nav-link linkii" onClick={logout}>Logout</a>
                                         </li>
                                     </Fragment>
@@ -127,7 +128,7 @@ function Navbar() {
                                         <li className="nav-item">
                                             <Link className="nav-link linkii" hidden to="/doctor">Doctors</Link>
                                         </li>
-                            
+
                                         <li className="nav-item">
                                             <Link className="nav-link linkii" to="/search_doctor">Add Doctors</Link>
                                         </li>
@@ -145,6 +146,12 @@ function Navbar() {
 
                                         <li className="nav-item">
                                             <Link className="nav-link linkii" to="/update_hospital" >Update Account</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/about">About us</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/contact">Contact us</Link>
                                         </li>
 
                                         <li className="nav-item">
@@ -172,6 +179,12 @@ function Navbar() {
                                             <Link className="nav-link linkii" to="/user_updates">{sessionStorage.getItem("name")}</Link>
                                         </li>
                                         <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/about">About us</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/contact">Contact us</Link>
+                                        </li>
+                                        <li className="nav-item">
                                             <a className="nav-link linkii" onClick={logout}>Logout</a>
                                         </li>
                                     </Fragment>
@@ -187,16 +200,22 @@ function Navbar() {
                                 no_user === false ?
                                     <Fragment>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/doctor">Doctors</Link>
+                                            <Link className="nav-link linkii" to="/doctor">Doctor</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/hospital">Hospitals</Link>
+                                            <Link className="nav-link linkii" to="/hospital">Hospital</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/lab">Labs</Link>
+                                            <Link className="nav-link linkii" to="/lab">Lab</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link linkii" to="/login">Sign in</Link>
+                                            <Link className="nav-link linkii" to="/login">Patient</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/about">About us</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/contact">Contact us</Link>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link linkii" hidden onClick={logout}>Logout</a>
@@ -219,7 +238,13 @@ function Navbar() {
                                             <Link className="nav-link linkii" to="/lab/update">Update Account</Link>
                                         </li>
                                         <li className="nav-item">
-                                        <a className="nav-link linkii" >{sessionStorage.getItem("name")}</a>
+                                            <a className="nav-link linkii" >{sessionStorage.getItem("name")}</a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/about">About us</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link linkii" to="/contact">Contact us</Link>
                                         </li>
                                         <li className="nav-item">
                                             <a className="nav-link linkii" onClick={logout}>Logout</a>
@@ -230,6 +255,8 @@ function Navbar() {
                                     <div></div>
 
                             }
+
+
 
 
 

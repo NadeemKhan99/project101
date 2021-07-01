@@ -14,10 +14,10 @@ function SignupForm({ preValues }) {
         initialValues: {
             name: sessionStorage.getItem("name"),
             email: sessionStorage.getItem("email"),
-            city: sessionStorage.getItem("city"),
+            city: sessionStorage.getItem("city").toLowerCase(),
             phone: sessionStorage.getItem("phone"),
             address: sessionStorage.getItem("address"),
-            speciality: sessionStorage.getItem("speciality"),
+            speciality: sessionStorage.getItem("speciality").toLowerCase(),
             experience: sessionStorage.getItem("experience"),
             qualification: sessionStorage.getItem("qualification"),
             fees: sessionStorage.getItem("fees"),

@@ -61,9 +61,20 @@ function DocSlots({submit,set_values,back_slots}) {
             <DaySlots setDay={setsaturdaySlots} day="Saturday" check={setsaturdaycheck}/>
             <DaySlots setDay={setsundaySlots} day="Sunday" check={setsundaycheck}/>
 
-            <button onClick={onSubmit}>Next</button>
-            <button onClick={()=>submit(1)}>Back</button>
+
+
             <button className="btn btn-success back" onClick={() => back_slots(false)}>Search Doctor</button>
+            <div className="row">
+
+                    <div className="col">
+                    <button onClick={()=>submit(1)} className="btn btn-secondary float-right">Back</button>
+                    </div>
+                    <div className="col">
+
+                    <button onClick={onSubmit} className="btn btn-primary float-left" >Next</button>
+
+                    </div>
+                </div>
 
 
             

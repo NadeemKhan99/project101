@@ -116,6 +116,8 @@ function User_Lab_Appointments() {
                                 appointment_date: <b>{appointment['date'][key]}</b><br></br>
                                 slot: <b>{appointment['slot'][key]}</b><br></br>
                                 number_of_appointments: <b>{appointment['patients'][key]}</b><br></br>
+                                service: <b>{appointment['appointed_service'][key]}</b><br></br>
+                                fee: <b>{appointment['fee'][key]}</b><br></br>
                                 address: <b>{appointment['address'][key]}</b><br></br>
                                 {
                                     appointment['status'][key] === "active" ? 

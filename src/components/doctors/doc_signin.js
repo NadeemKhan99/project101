@@ -26,7 +26,7 @@ function DocSign() {
                 "Content-Type": "application/json;charset=UTF-8",
             }
 
-
+            console.log(values)
 
 
             axios.post(

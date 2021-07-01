@@ -39,7 +39,7 @@ function Contact() {
         validationSchema: yup.object({
             name: yup.string().matches("^[a-zA-Z ]{1,}[^0-9]$", "Invalid name, only use text").required("This field is required!"),
             email: yup.string().email("Invalid Email").required("This field is required!"),
-            address: yup.string().required("This field is required!")
+            address: yup.string().required("This field is required!").min(2, 'Must be exactly 5 digits').max(200, 'Must be exactly 5 digits')
         })
     })
 

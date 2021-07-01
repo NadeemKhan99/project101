@@ -4,7 +4,7 @@ import * as yup from "yup";
 import "./../../index.css"
 // import MultiSelect from "react-multi-select-component";
 
-function EducationForm({ submit, setformValuesEducation}) {
+function EducationForm({ submit, setformValuesEducation,formValuesEducation}) {
 
 
     // let [dataa,setdata] = useState([])
@@ -12,7 +12,9 @@ function EducationForm({ submit, setformValuesEducation}) {
 
     const formik = useFormik({
         initialValues: {
-            speciality: []
+            speciality: [],
+            fee: formValuesEducation.fee
+
         }
         ,
         onSubmit: (values) => {
@@ -23,6 +25,7 @@ function EducationForm({ submit, setformValuesEducation}) {
 
         },
         validationSchema: yup.object({
+            fee: yup.string().matches("^[0-9]{1,}[0-9|]*$", "Start with number and only use numbers and |").required("This field is required!"),
 
         })
     })
@@ -124,6 +127,13 @@ function EducationForm({ submit, setformValuesEducation}) {
 
                      </div>
 
+                </div>
+
+
+                <div className="mb-2 p-2">
+                    <label htmlFor="fee" className="form-label">Fee</label>
+                    <input type="text" className="form-control" value={formik.values.fee} onChange={formik.handleChange} id="fee" placeholder="e.g. 500|200|100|2000" />
+                    {formik.errors.fee ? <div className="error">{formik.errors.fee}</div> : ""}
                 </div>
 
 

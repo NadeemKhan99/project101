@@ -31,10 +31,11 @@ function Hospital_Update() {
                 "Content-Type": "application/json;charset=UTF-8",
             }
 
+            console.log(values)
 
 
             axios.post(
-                'http://localhost/back_end/update_user_data.php', values, headers
+                'http://localhost/back_end/update_hospital_data.php', values, headers
             ).then(
                 res => {
                     if (res.data.signal === 1) {
@@ -45,6 +46,7 @@ function Hospital_Update() {
                         sessionStorage.setItem("hospital_name", values.hospital_name)
                     }
                     alert(res.data.id)
+                    console.log(res.data)
                 }
             );
 

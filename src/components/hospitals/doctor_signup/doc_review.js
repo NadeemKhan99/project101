@@ -51,7 +51,7 @@ function Review({ submit, values, slots_data,back_slots }) {
             name: values[0].name,
             email: values[0].email,
             password: values[0].password,
-            city: values[0].city,
+            city: values[0].city.toLowerCase(),
             phone: values[0].phone,
             address: values[0].address,
             category: "doctor",
@@ -59,7 +59,7 @@ function Review({ submit, values, slots_data,back_slots }) {
             fees: values[1].fees,
             experience: values[1].experience,
             qualification: values[1].qualification,
-            speciality: values[1].speciality,
+            speciality: values[1].speciality.toLowerCase(),
             start: starting,
             end: ending,
             hospital_id: sessionStorage.getItem("hospital_id")

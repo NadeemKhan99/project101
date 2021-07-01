@@ -27,10 +27,10 @@ function Map() {
   return (
     <GoogleMap
       defaultZoom={10}
-      defaultCenter={{ lat: 31.5204, lng: 74.3587}}
-
+      defaultCenter={{ lat: 31.6962012, lng: 74.253135}}
+      // Latitude: 31.6962012 °, Longitude: 74.253135 °
     >
-      {parkData.features.map(park => (
+      {/* {parkData.features.map(park => (
         <Marker
           key={park.properties.PARK_ID}
           position={{
@@ -42,7 +42,18 @@ function Map() {
           }}
 
         />
-      ))}
+      ))} */}
+
+
+        <Marker
+          key={"123"}
+          position={{
+            lat: 31.6962012,
+            lng: 74.253135
+          }}
+
+
+        />
 
       {selectedPark && (
         <InfoWindow

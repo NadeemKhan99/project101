@@ -44,7 +44,7 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation }) 
             fees: yup.number().min(0, "Too short").max(10000, "Too long").required("This field is required!"),
             experience: yup.number().max(60, "Too long").required("This field is required!"),
             speciality: yup.string().matches("[^none]", "This field is required").required("This field is required!"),
-            qualification: yup.string().matches("^[a-zA-Z, ]*[a-zA-Z]$", "Only use space, comma, text").required("This field is required!")
+            qualification: yup.string().matches("^[a-zA-Z,.() ]*[a-zA-Z]$", "Only use space, comma, text").required("This field is required!")
 
         })
     })

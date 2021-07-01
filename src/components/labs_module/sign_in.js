@@ -34,6 +34,7 @@ function Lab_Sign() {
                         sessionStorage.setItem("city", res.data.city)
                         sessionStorage.setItem("address", res.data.address)
                         sessionStorage.setItem("phone", res.data.phone)
+                        sessionStorage.setItem("password", res.data.password)
 
                         setcheck(true)
                         alert(res.data.id)

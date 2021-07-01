@@ -22,6 +22,9 @@ export const get_appointments = async(idd) =>{
 
 
 
+//  forms....formik.....validatoins....
+
+
 export const get_doctors = async(city,speciality) =>{
     var headers = {
         "Content-Type": "application/json;charset=UTF-8",
@@ -327,4 +330,38 @@ export const get_cities = async() =>{
     
     return data;
 }
+
+
+
+export const get_all_doctors_city_wise = async(city) =>{
+    var headers = {
+        "Content-Type": "application/json;charset=UTF-8",
+    }
+
+
+
+    let values = {
+        id: city
+    }
+
+    
+    let data = await axios.post(
+        'http://localhost/back_end/get_doctor_city_wise.php', values, headers
+    ).then(
+            res => {
+                return res.data
+            }
+        );
+    
+    return data;
+}
+
+
+
+
+
+
+
+
+
 

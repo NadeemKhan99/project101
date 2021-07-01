@@ -20,6 +20,8 @@ function ShowLabs() {
     let location = useLocation()
     let mycity = location.state.city_data.city
 
+
+    
     if(sessionStorage.getItem("user_id"))
     {
         id_user = sessionStorage.getItem("user_id")
@@ -68,6 +70,9 @@ function ShowLabs() {
         data_show(mycity);
     }, [mycity]);
 
+
+
+    console.log(doctors_record)
 
     if (!doctors_record) {
         return (
@@ -179,6 +184,11 @@ function ShowLabs() {
                                     <div className="row">
                                         <div className="col">
                                             <b>Services:</b> <br></br>{doctors_record.speciality[key]}
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col">
+                                            <b>Fee:</b> <br></br>{doctors_record.fee[key]}
                                         </div>
                                     </div>
 

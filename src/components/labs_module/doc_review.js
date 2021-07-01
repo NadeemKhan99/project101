@@ -34,17 +34,37 @@ function Review({ submit, values, slots_data}) {
         }
         return rows
     }
-
-
-
     
 
     let specialists = ""
+    let fee_show = ""
+
+    let go = false
 
 
-    for (let j = 0; values[1].speciality.length - 1 >= j; j++) {
-        specialists = specialists + "| " + values[1].speciality[j] + " "
+    let fee_data = values[1].fee.split("|")
+
+    let fee_data_without_spcaes = []
+    
+
+    for (let j = 0; fee_data.length - 1 >= j; j++) {
+        if(fee_data[j] !== "")
+        {
+            fee_data_without_spcaes.push(fee_data[j])
+        }
     }
+
+
+    if(fee_data_without_spcaes.length === values[1].speciality.length)
+    {
+        go = true
+        for (let j = 0; values[1].speciality.length - 1 >= j; j++) {
+            specialists = specialists + "| " + values[1].speciality[j] + " "
+            fee_show = fee_show + "| " + fee_data_without_spcaes[j] + " "
+        }
+
+    }
+
 
 
 
@@ -66,13 +86,15 @@ function Review({ submit, values, slots_data}) {
             category: "lab",
             speciality: specialists,
             start: starting,
-            end: ending
+            end: ending,
+            fee: fee_show
         }
 
         var headers = {
             "Content-Type": "application/json;charset=UTF-8",
         }
 
+        
 
 
 
@@ -115,6 +137,8 @@ function Review({ submit, values, slots_data}) {
             <p>{values[0].address}</p>
             <h4>Services</h4>
             <p>{specialists}</p>
+            <h4>Fee</h4>
+            <p>{fee_show}</p>
 
 
             {/*  ------------------------------------MONDAY----------------------------- */}
@@ -454,7 +478,22 @@ function Review({ submit, values, slots_data}) {
                         values[1].speciality.length === 0 ?
                             <p className="error">Plz select services!</p>
                             :
-                            <button className="btn btn-success float-left" onClick={onSubmit}>Submit</button>
+                            <>
+
+                            {
+                                go ?  
+                                <button className="btn btn-success float-left" onClick={onSubmit}>Submit</button>
+                                :
+                                <p className="error">Fee must be equal to services!</p>
+
+
+                            
+
+                            }
+                            </>
+
+
+
 
                     }
                 </div>

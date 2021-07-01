@@ -29,12 +29,14 @@ function Signup() {
                 "Content-Type": "application/json;charset=UTF-8",
             }
 
+            console.log(values)
         
             axios.post(
                 'http://localhost/back_end/go.php', values, headers
             ).then(
                 res => {
                     setcheck(false);
+                    console.log(res.data)
                     alert(res.data.id)
                 }
             );

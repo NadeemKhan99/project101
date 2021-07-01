@@ -6,6 +6,8 @@ import './../index.css'
 import ShowLabs from './labs_module/search_lab/show_labs'
 import { Fragment } from 'react';
 import {get_cities} from "./api_requests/login"
+// import useGeoLocation from 'react-navigator-geolocation'
+import Coordinates_user from './googlemaps/coordinates_user';
 
 
 function SearchLab() {
@@ -16,22 +18,24 @@ function SearchLab() {
 
     let [mycity,setcities] = useState([])
 
+    let idd = sessionStorage.getItem('user_id') || false;
+
 
     let rows = []
     let i = 1
 
+    let [states,setstates] = useState(false)
+
     useEffect(() => {
         async function get_info() {
             let real_data = await get_cities();
-
+            states ? setstates(false) : setstates(true)
             setcities(real_data);
         }
         get_info();
-    }, [docdata,mycity]);
+    },[idd]);
 
-    
-
-
+    console.log("jij")
 
     const formik = useFormik({
         initialValues: {
@@ -70,6 +74,8 @@ function SearchLab() {
     }
 
 
+
+
     return (
         <Fragment>
 
@@ -97,8 +103,10 @@ function SearchLab() {
                             <input type="submit" className="btn btn-primary" value="Search" />
                         </div>
                     </div>
+        
                 </form>
             </div>
+            {/* <Coordinates_user/> */}
         </Fragment>
     );
 }

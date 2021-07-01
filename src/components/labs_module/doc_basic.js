@@ -23,7 +23,7 @@ function SignupForm({submit,setformValues,preValues}) {
         },
         validationSchema: yup.object({
             name: yup.string().matches("^[a-zA-Z ]{1,}[^0-9]$", "Invalid name, only use text").required("This field is required!"),
-            email: yup.string().email("Invalid Email").required("This field is required!"),
+            email: yup.string().email("Invalid Email(xxx@xxxx.com)").required("This field is required!"),
             password: yup.string().min(6, "Must be greater than 5 digits").max(10, "Must be less than 11 digits").required("This field is required!"),
             city: yup.string().matches("^[a-zA-Z]{3,}$", "Only use text must be greater than 3 words").required("This field is required!"),
             phone: yup.string().matches("^[1-9]{1}[0-9]{9}$", "Start number with 1-9 and must 10 digit long").required("This field is required!"),

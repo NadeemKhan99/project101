@@ -35,7 +35,7 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation, ba
             fees: yup.number().min(0, "Too short").max(10000, "Too long").required("This field is required!"),
             experience: yup.number().max(60, "Too long").required("This field is required!"),
             speciality: yup.string().matches("[^none]", "This field is required").required("This field is required!"),
-            qualification: yup.string().matches("^[a-zA-Z, ]*[a-zA-Z]$", "Only use space, comma, text").required("This field is required!")
+            qualification: yup.string().matches("^[a-zA-Z, ]*[a-zA-Z)]$", "Only use space, comma, text").required("This field is required!")
 
         })
     })
@@ -57,14 +57,14 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation, ba
 
 
 
-        let i = 0;
-        let rows = []
-        while (i < myspecialist.length) {
-            rows.push(i)
-            i++
-        }
-    
-    
+    let i = 0;
+    let rows = []
+    while (i < myspecialist.length) {
+        rows.push(i)
+        i++
+    }
+
+
 
 
 
@@ -104,19 +104,19 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation, ba
                 <div className="mb-2 p-2">
                     <label htmlFor="speciality" className="form-label">Speciality</label>
                     <select className="form-select" id="speciality" value={formik.values.speciality} onChange={formik.handleChange} aria-label="Default select example">
-                    <option value="none">Select Specialist</option>
+                        <option value="none">Select Specialist</option>
                         {
-                            rows.map((data,key)=>{
-                                return(
+                            rows.map((data, key) => {
+                                return (
                                     <Fragment key={key}>
-                                    <option value={myspecialist[key]}>{myspecialist[key]}</option>
+                                        <option value={myspecialist[key]}>{myspecialist[key]}</option>
                                     </Fragment>
                                 )
 
 
                             })
                         }
-                        
+
                     </select>
                     {formik.errors.speciality ? <div className="error">{formik.errors.speciality}</div> : ""}
                 </div>
@@ -127,14 +127,20 @@ function EducationForm({ submit, setformValuesEducation, formValuesEducation, ba
                     {formik.errors.qualification ? <div className="error">{formik.errors.qualification}</div> : ""}
                 </div>
 
+                <div className="row">
 
-                <div className="mb-6 p-2 register_button">
+                    <div className="col">
+                        <button onClick={() => submit(0)} className="btn btn-secondary float-left" >Back</button>
+                    </div>
+                    <div className="col register_button">
 
-                    <button type="submit" className="btn btn-success">Next</button>
+                        <button type="submit" className="btn btn-success flat-right">Next</button>
 
+                    </div>
                 </div>
             </form>
-            <button onClick={() => submit(0)} >Back</button>
+
+
             <button className="btn btn-success back" onClick={() => back_slots(false)}>Search Doctor</button>
         </div>
     );

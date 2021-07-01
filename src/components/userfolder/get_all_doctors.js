@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react'
 import { Fragment } from 'react';
-import { get_doctors,get_max_user_appoints } from './../api_requests/login'
+import { get_all_doctors_city_wise,get_max_user_appoints } from './../api_requests/login'
 import MakeApppointment from './make_appointment'
+import {useLocation} from 'react-router-dom'
+import Navbar from '../navbar'
 import './../../index.css'
 
 
-function ShowDoctors({ value, callback }) {
+function ShowDoctorsCity() {
 
     let [doctors_record, setdoctors_record] = useState([])
     let [changepage,setchangepage] = useState(false)
     let [index,setindex] = useState()
     let [doctor_key,setdoctorkey] = useState({})
     let [max_appointments,set_max_appointments] = useState([])
+
+    let location = useLocation()
+    let city_name = location.state.city_name
 
     let check_doctors = true
     let id_user = 0
@@ -41,6 +46,28 @@ function ShowDoctors({ value, callback }) {
 
         async function max_appoints(id_user){
 
+            let data = await get_all_doctors_city_wise(id_user)
+            setdoctors_record(data)
+
+        }
+
+        max_appoints(city_name)
+
+    }, [city_name]);
+
+
+    if(max_appointments)
+    {
+
+        console.log(max_appointments)
+    }
+
+
+
+    useEffect(()=>{
+
+        async function max_appoints(id_user){
+
             let data = await get_max_user_appoints(id_user)
             set_max_appointments(data)
 
@@ -48,30 +75,11 @@ function ShowDoctors({ value, callback }) {
 
         max_appoints(id_user)
 
-    }, [value || id_user]);
+    }, [city_name || id_user]);
 
 
 
 
-
-
-
-
-
-
-
-
-    useEffect(() => {
-        async function data_show(value) {
-            let real_data = await get_doctors(value['city'], value['category']);
-
-            setdoctors_record(real_data);
-        }
-        data_show(value);
-    }, [value]);
-
-
-    console.log(value)
 
     console.log(doctors_record)
 
@@ -145,7 +153,9 @@ function ShowDoctors({ value, callback }) {
     return (
 
         <Fragment>
-            <div>
+
+            <Navbar/>
+             <div>
 
             <h3 className="title">Doctors</h3>
             </div>
@@ -179,7 +189,7 @@ function ShowDoctors({ value, callback }) {
 
                 :
                 ""
-            }
+            } 
 
 {
             check_doctors ? 
@@ -271,7 +281,7 @@ function ShowDoctors({ value, callback }) {
                                     
                                 
 
-                                <button className="btn btn-success back" onClick={() => callback(false)}>Back </button>
+                                {/* <button className="btn btn-success back" onClick={() => go_back()}>Back </button> */}
 
                             </div>
                         )
@@ -280,12 +290,11 @@ function ShowDoctors({ value, callback }) {
                     :
                     <div className="review_form">
                         <h1>No doctors yet!</h1>
-                        <button className="btn btn-success back" onClick={() => callback(false)}>Back </button>
+                        {/* <button className="btn btn-success back" onClick={() => go_back()}>Back </button> */}
                     </div>
-            }
+            } 
 
 
-            {/*  for doctors with no clinic */}
 
 
 {
@@ -359,7 +368,7 @@ function ShowDoctors({ value, callback }) {
                                     
                                 
 
-                                <button className="btn btn-success back" onClick={() => callback(false)}>Back </button>
+                                {/* <button className="btn btn-success back" onClick={() => go_back()}>Back </button> */}
 
                             </div>
                         )
@@ -367,99 +376,7 @@ function ShowDoctors({ value, callback }) {
                     })
                     :
                     <div></div>
-            }
-
-
-
-            {/*   doctors(clinical) with hospital */}
-
-
-{
-                check_doctors ?
-
-                    rows2.map((data, key) => {
-                        return (
-                            <div className="review_form" key={key} id={doctors_record.email2[key] + doctors_record.hospital_name2[key]}>
-                                <div className="container">
-                                    <div className="row">
-                                        <div className="col">
-                                            <b>{doctors_record.name2[key]}</b>
-                                        </div>
-                                        <div className="col">
-                                            <b>{doctors_record.email2[key]}</b>
-                                        </div>
-                                    </div>
-                                    <hr></hr>
-                                    <div className="row">
-                                        <div className="col">
-                                            +92 {doctors_record.phone2[key]}
-                                        </div>
-                                        <div className="col">
-                                            {doctors_record.address2[key]}
-                                        </div>
-                                        <div className="col">
-                                            <b>{doctors_record.city2[key]}</b>
-                                        </div>
-                                    </div>
-                                    <hr></hr>
-                                    <div className="row">
-                                        <div className="col">
-                                            <b>{doctors_record.hospital_name2[key]}</b>
-                                        </div>
-                                    </div>
-                                    <hr></hr>
-                                    <div className="row">
-                                        <div className="col">
-                                            {doctors_record.experience2[key]} experience
-                                        </div>
-                                        <div className="col">
-                                            {doctors_record.fees2[key]} fee
-                                        </div>
-                                        <div className="col">
-                                            <b>speciality:</b> <br></br>{doctors_record.speciality2[key]}
-                                        </div>
-                                    </div>
-                
-                                </div>
-                                {
-                                    sessionStorage.getItem("user_id") ?
-
-                                        max_appointments["signal"]===1 ?
-
-                                        <p className="error">{max_appointments["message"]}</p> 
-                                    
-                                        :
-                                    
-                                        <button type="button" className="btn btn-primary" onClick={()=> {
-                                            clickpage(key,true)
-                                            setdoctorkey({"doctor_key":doctors_record["doctor_id2"][key],"hospital_key":doctors_record["hospital_id2"][key],"count":2})
-                                        }
-                                        }>Appoint</button>
-                                    :
-                                    <p className="error">Plz login to make appointments!</p>
-                                }
-                                
-                               
-
-                                    
-                                
-
-                                <button className="btn btn-success back" onClick={() => callback(false)}>Back </button>
-
-                            </div>
-                        )
-
-                    })
-                    :
-                    <div></div>
-            }
-
-
-
-
-
-
-
+            } 
 
 
 
@@ -470,4 +387,9 @@ function ShowDoctors({ value, callback }) {
 
 }
 
-export default ShowDoctors;
+export default ShowDoctorsCity;
+
+
+
+
+

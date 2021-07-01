@@ -9,7 +9,18 @@ function Review({ submit, values }) {
 
 
 
+    let rows1 = []
+    let j = 1
 
+    let length_array = values[1].speciality.length
+
+    while(j<= length_array)
+    {
+        rows1.push(j)
+        j++
+    }
+
+    
 
 
     let specialists = ""
@@ -30,7 +41,7 @@ function Review({ submit, values }) {
             name: values[0].name,
             email: values[0].email,
             password: values[0].password,
-            city: values[0].city,
+            city: values[0].city.toLowerCase(),
             phone: values[0].phone,
             address: values[0].address,
             category: "hospital",
@@ -81,7 +92,14 @@ function Review({ submit, values }) {
             <p>{values[1].numberDoctor}</p>
 
 
-            <p>{values[1].speciality}</p>
+            {rows1.map((data,key)=>{
+                return(
+                    <span key={key}>
+                        {data%4 === 0 ? <br></br> : ""}
+                    <span>{values[1].speciality[key]}|</span>
+                    </span>
+                )
+            })}
 
 
 
